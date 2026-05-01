@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IAra Soluções Digitais — Tecnologia · Inteligência · Resultados</title>
+<meta name="description" content="Empresa de tecnologia e estratégia digital. Landing pages, automação, desenvolvimento de software e inteligência de dados para negócios que querem crescer.">
+<link rel="icon" type="image/png" href="assets/iara-logo-monograma.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --navy:   #111827;
+  --navy2:  #1F2D45;
+  --copper: #B5703A;
+  --cop2:   #C98348;
+  --cream:  #F8F5F1;
+  --cream2: #EDE8E0;
+  --white:  #FFFFFF;
+  --text:   #0F172A;
+  --muted:  #64748B;
+  --light:  #94A3B8;
+  --border: rgba(0,0,0,.07);
+  --display:'Syne', sans-serif;
+  --body:   'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--body);
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  padding: 0 60px;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .35s, box-shadow .35s;
+}
+nav.scrolled {
+  background: rgba(10, 22, 38, .94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.08);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-monogram {
+  width: 36px; height: 36px;
+  background: var(--navy);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display);
+  font-size: 15px; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -.5px;
+}
+.nav-monogram span { color: var(--copper); }
+.nav-name {
+  font-family: var(--display);
+  font-size: 15px; font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -.2px;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,.72);
+  text-decoration: none;
+  letter-spacing: .01em;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 600;
+  color: var(--white);
+  background: var(--copper);
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: background .2s, transform .15s;
+}
+.nav-cta:hover { background: var(--navy2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 60px 80px;
+  position: relative; overflow: hidden;
+}
+
+/* subtle grid */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(181,112,58,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(181,112,58,.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+
+/* copper accent circle */
+.hero-circle {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(181,112,58,.13) 0%, transparent 65%);
+  right: -140px; top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.hero-circle2 {
+  position: absolute;
+  width: 320px; height: 320px;
+  border: 1px solid rgba(181,112,58,.12);
+  border-radius: 50%;
+  left: 55%; bottom: 60px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 1100px; width: 100%;
+  position: relative; z-index: 1;
+}
+
+.hero-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 40px;
+}
+.hero-label-line { width: 28px; height: 1px; background: var(--copper); }
+.hero-label-text {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--copper);
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(48px, 6.5vw, 90px);
+  font-weight: 700;
+  line-height: .96;
+  color: var(--white);
+  letter-spacing: -2px;
+  margin-bottom: 40px;
+}
+.hero-title .accent { color: var(--copper); }
+.hero-title .outline {
+  -webkit-text-stroke: 1px rgba(255,255,255,.25);
+  color: transparent;
+}
+
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.hero-desc {
+  font-size: 16px; font-weight: 300;
+  color: rgba(255,255,255,.55);
+  line-height: 1.75;
+  grid-column: 1 / 3;
+}
+.hero-desc strong { color: rgba(255,255,255,.85); font-weight: 400; }
+.hero-actions {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: flex-end;
+}
+.btn-copper {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 600;
+  color: var(--navy);
+  background: var(--copper);
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-copper:hover {
+  background: var(--cop2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(181,112,58,.35);
+}
+.btn-ghost-white {
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,.45);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+  transition: color .2s;
+  white-space: nowrap;
+}
+.btn-ghost-white:hover { color: rgba(255,255,255,.8); }
+
+/* ── NÚMEROS ── */
+#numeros {
+  background: var(--cream);
+  padding: 0 60px;
+}
+.numeros-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-left: 1px solid var(--border);
+}
+.numero-item {
+  padding: 56px 40px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.numero-item:hover { background: var(--cream2); }
+.numero-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--copper);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.numero-item:hover::after { transform: scaleX(1); }
+.numero-val {
+  font-family: var(--display);
+  font-size: 52px; font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+}
+.numero-val span { color: var(--copper); }
+.numero-label {
+  font-size: 13px; font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── SOBRE ── */
+#sobre {
+  padding: 120px 60px;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 80px;
+  align-items: start;
+  background: var(--white);
+}
+.tag-label {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.tag-label::before { content: ''; width: 24px; height: 1px; background: var(--copper); display: block; }
+.block-title {
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 32px;
+}
+.block-title em { font-style: normal; color: var(--copper); }
+.sobre-text {
+  font-size: 15px; font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.sobre-text strong { font-weight: 500; color: var(--text); }
+.founder-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 34px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--cream);
+}
+.founder-photo {
+  width: 82px;
+  height: 82px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 16px 34px rgba(6, 24, 42, .12);
+}
+.founder-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 6px;
+}
+.founder-name {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.founder-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.sobre-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+.pillar {
+  background: var(--cream);
+  border-radius: 10px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.pillar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.07);
+}
+.pillar-icon {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  background: rgba(181,112,58,.08);
+  color: var(--copper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pillar-icon svg,
+.met-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pillar-name {
+  font-family: var(--display);
+  font-size: 15px; font-weight: 600;
+  color: var(--navy); margin-bottom: 8px;
+}
+.pillar-desc {
+  font-size: 13px; font-weight: 300;
+  color: var(--muted); line-height: 1.65;
+}
+
+/* ── EXPERTISE ── */
+#expertise {
+  background: var(--navy);
+  padding: 120px 60px;
+}
+.expertise-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 72px;
+}
+.expertise-header .block-title { color: var(--white); margin-bottom: 0; }
+.expertise-header .block-title em { color: var(--copper); }
+.expertise-intro {
+  font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,.45);
+  line-height: 1.75;
+  align-self: end;
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,.06);
+}
+.solution-card {
+  background: var(--navy);
+  padding: 52px 48px;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+  cursor: default;
+}
+.solution-card:hover { background: var(--navy2); }
+.solution-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--copper);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.solution-card:hover::before { transform: scaleY(1); }
+.sol-number {
+  font-family: var(--display);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .14em;
+  color: var(--copper); opacity: .6;
+  margin-bottom: 24px;
+}
+.sol-title {
+  font-family: var(--display);
+  font-size: 22px; font-weight: 700;
+  color: var(--white);
+  letter-spacing: -.4px;
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+.sol-desc {
+  font-size: 14px; font-weight: 300;
+  color: rgba(255,255,255,.4);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.sol-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sol-list li {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,.3);
+  display: flex; align-items: center; gap: 10px;
+}
+.sol-list li::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--copper); opacity: .5;
+  flex-shrink: 0;
+}
+
+/* ── PROCESSO ── */
+#processo {
+  padding: 120px 60px;
+  background: var(--cream);
+}
+.processo-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+.processo-steps {
+  display: flex; flex-direction: column; gap: 0;
+  counter-reset: step;
+}
+.step {
+  display: flex; gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: padding-left .2s;
+}
+.step:hover { padding-left: 8px; }
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-family: var(--display);
+  font-size: 13px; font-weight: 700;
+  color: var(--copper);
+  opacity: .5;
+  width: 32px; flex-shrink: 0;
+  padding-top: 2px;
+}
+.step-content {}
+.step-title {
+  font-family: var(--display);
+  font-size: 15px; font-weight: 600;
+  color: var(--navy); margin-bottom: 6px;
+}
+.step-desc {
+  font-size: 13px; font-weight: 300;
+  color: var(--muted); line-height: 1.65;
+}
+
+.metodologia {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 48px;
+  border: 1px solid var(--border);
+}
+.brand-logo-light {
+  height: 64px;
+  width: auto;
+  margin-bottom: 28px;
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(6, 24, 42, .12);
+}
+.met-title {
+  font-family: var(--display);
+  font-size: 22px; font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -.4px;
+  margin-bottom: 8px;
+}
+.met-sub {
+  font-size: 14px; font-weight: 300;
+  color: var(--muted); margin-bottom: 36px;
+  line-height: 1.6;
+}
+.met-items { display: flex; flex-direction: column; gap: 20px; }
+.met-item { display: flex; gap: 16px; align-items: flex-start; }
+.met-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--copper);
+  flex-shrink: 0;
+}
+.met-item-title {
+  font-size: 14px; font-weight: 500;
+  color: var(--navy); margin-bottom: 3px;
+}
+.met-item-desc {
+  font-size: 13px; font-weight: 300;
+  color: var(--muted); line-height: 1.55;
+}
+
+/* ── PORTFÓLIO ── */
+#portfolio {
+  padding: 120px 60px;
+  background: var(--white);
+}
+.portfolio-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+  gap: 56px;
+  align-items: end;
+}
+.portfolio-note {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 12px;
+}
+.portfolio-note strong {
+  font-weight: 500;
+  color: var(--text);
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 64px;
+}
+.p-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.p-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 56px rgba(0,0,0,.09);
+}
+.p-thumb {
+  height: 200px;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.p-thumb-bg {
+  font-family: var(--display);
+  font-size: 100px; font-weight: 700;
+  color: rgba(255,255,255,.04);
+  letter-spacing: -6px;
+  position: absolute;
+  user-select: none;
+}
+.p-thumb-label {
+  font-family: var(--display);
+  font-size: 18px; font-weight: 700;
+  color: rgba(255,255,255,.6);
+  z-index: 1;
+}
+.p-thumb-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  z-index: 1;
+}
+.qf-logo {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 34px rgba(0,0,0,.26);
+}
+.p-badge {
+  position: absolute; top: 16px; right: 16px;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px;
+}
+.live { background: rgba(181,112,58,.15); color: var(--copper); border: 1px solid rgba(181,112,58,.25); }
+.wip  { background: rgba(255,255,255,.06); color: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.1); }
+.p-body { padding: 32px; }
+.p-cat {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 10px;
+}
+.p-name {
+  font-family: var(--display);
+  font-size: 20px; font-weight: 700;
+  color: var(--navy); margin-bottom: 12px;
+  letter-spacing: -.3px;
+}
+.p-desc {
+  font-size: 14px; font-weight: 300;
+  color: var(--muted); line-height: 1.7; margin-bottom: 20px;
+}
+.p-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.p-tag {
+  font-size: 11px; color: var(--muted);
+  background: var(--cream);
+  padding: 4px 10px; border-radius: 4px;
+}
+.p-link {
+  font-size: 13px; font-weight: 500;
+  color: var(--copper); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap .2s;
+}
+.p-link:hover { gap: 10px; }
+
+/* ── CTA ── */
+#cta {
+  background: var(--navy);
+  padding: 140px 60px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+#cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(181,112,58,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(181,112,58,.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.cta-kicker {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 28px;
+}
+.cta-title {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+.cta-title em { font-style: normal; color: var(--copper); }
+.cta-sub {
+  font-size: 16px; font-weight: 300;
+  color: rgba(255,255,255,.45);
+  line-height: 1.7;
+  margin-bottom: 52px;
+}
+.cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  font-family: var(--display);
+  font-size: 14px; font-weight: 600;
+  color: var(--navy);
+  background: var(--white);
+  padding: 16px 36px; border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: background .2s, transform .15s;
+}
+.btn-white:hover { background: var(--cream); transform: translateY(-2px); }
+.btn-border-white {
+  font-size: 14px; font-weight: 400;
+  color: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 15px 28px; border-radius: 6px;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-border-white:hover { border-color: rgba(255,255,255,.4); color: rgba(255,255,255,.85); }
+
+/* ── FOOTER ── */
+footer {
+  background: #0A0F1A;
+  padding: 56px 60px 40px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.footer-brand {
+  font-family: var(--display);
+  font-size: 18px; font-weight: 700;
+  color: rgba(255,255,255,.8);
+  margin-bottom: 12px;
+}
+.footer-brand span { color: var(--copper); }
+.footer-tagline {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,.25);
+  line-height: 1.6; max-width: 240px;
+}
+.footer-col-title {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 16px;
+}
+.footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col-links a {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,.35);
+  text-decoration: none; transition: color .2s;
+}
+.footer-col-links a:hover { color: rgba(255,255,255,.7); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 28px;
+}
+.footer-copy { font-size: 12px; color: rgba(255,255,255,.15); }
+.footer-slogan {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(181,112,58,.4);
+}
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.d1 { transition-delay: .08s; }
+.d2 { transition-delay: .16s; }
+.d3 { transition-delay: .24s; }
+.d4 { transition-delay: .32s; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  #hero { padding: 100px 24px 64px; }
+  .hero-bottom { grid-template-columns: 1fr; gap: 24px; }
+  .hero-actions { align-items: flex-start; }
+  #numeros { padding: 0 24px; }
+  .numeros-inner { grid-template-columns: 1fr 1fr; }
+  #sobre { grid-template-columns: 1fr; padding: 80px 24px; gap: 48px; }
+  .sobre-right { grid-template-columns: 1fr; }
+  .founder-card { align-items: flex-start; }
+  #expertise { padding: 80px 24px; }
+  .expertise-header { grid-template-columns: 1fr; gap: 24px; }
+  .solutions-grid { grid-template-columns: 1fr; }
+  #processo { padding: 80px 24px; }
+  .processo-inner { grid-template-columns: 1fr; }
+  #portfolio { padding: 80px 24px; }
+  .portfolio-head { grid-template-columns: 1fr; gap: 12px; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  #cta { padding: 100px 24px; }
+  footer { padding: 48px 24px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <img src="assets/iara-logo-horizontal.png" alt="IAra Soluções Digitais" style="height:38px;width:auto;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#expertise">Soluções</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#processo">Processo</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Fale com a gente</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-circle"></div>
+  <div class="hero-circle2"></div>
+  <div class="hero-inner">
+    <div class="hero-logo-wrap reveal" style="margin-bottom:48px;display:flex;align-items:center;gap:24px;">
+      <img src="assets/iara-logo-horizontal.png" alt="IAra" style="height:80px;width:auto;filter:drop-shadow(0 0 24px rgba(181,112,58,.4));animation:logoFloat 4s ease-in-out infinite;">
+      <div style="width:1px;height:56px;background:rgba(255,255,255,.12);"></div>
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:6px;">Empresa de Tecnologia</div>
+        <div style="font-family:var(--display);font-size:17px;font-weight:700;color:rgba(255,255,255,.8);">IAra Soluções Digitais</div>
+      </div>
+    </div>
+    <h1 class="hero-title reveal d1">
+      Ecossistemas<br>
+      digitais que<br>
+      <span class="accent">impulsionam</span><br>
+      <span class="outline">negócios.</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc reveal d2">
+        A <strong>IAra Soluções Digitais</strong> é uma empresa de tecnologia e estratégia que une o visão prática de processos com criatividade digital. Transformamos necessidades operacionais e objetivos de mercado em <strong>resultados mensuráveis</strong>.
+      </p>
+      <div></div>
+      <div class="hero-actions reveal d3">
+        <a href="#cta" class="btn-copper">Solicitar diagnóstico</a>
+        <a href="#expertise" class="btn-ghost-white">Ver nossas soluções →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section id="numeros">
+  <div class="numeros-inner">
+    <div class="numero-item reveal">
+      <div class="numero-val">330<span>+</span></div>
+      <div class="numero-label">deploys em produção<br>no QualiFlow</div>
+    </div>
+    <div class="numero-item reveal d1">
+      <div class="numero-val">4<span>×</span></div>
+      <div class="numero-label">frentes de atuação<br>integradas</div>
+    </div>
+    <div class="numero-item reveal d2">
+      <div class="numero-val">IA</div>
+      <div class="numero-label">processos mais ágeis<br>com IA aplicada</div>
+    </div>
+    <div class="numero-item reveal d3">
+      <div class="numero-val">100<span>%</span></div>
+      <div class="numero-label">foco em resultado<br>mensurável</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-left">
+    <div class="tag-label reveal">Sobre a empresa</div>
+    <h2 class="block-title reveal d1">
+      Tecnologia que<br>
+      não existe <em>isolada.</em>
+    </h2>
+    <p class="sobre-text reveal d2">
+      Nascemos da compreensão de que uma presença digital forte exige mais do que uma landing page — exige automação de processos, sistemas internos eficientes e inteligência de dados.
+    </p>
+    <p class="sobre-text reveal d3">
+      Nossa metodologia integra <strong>design, desenvolvimento e gestão estratégica</strong> para cobrir todas as frentes da sua jornada digital. Cada projeto é tratado como um sistema único, projetado para crescer com o seu negócio.
+    </p>
+    <div class="founder-card reveal d4">
+      <img src="assets/iara-perfil.png" alt="Iara Pereira" class="founder-photo">
+      <div>
+        <div class="founder-kicker">Direção técnica</div>
+        <div class="founder-name">Iara Pereira</div>
+        <div class="founder-desc">À frente da IAra Soluções Digitais, une prática operacional, desenvolvimento de software e visão de produto para criar soluções digitais aplicáveis à rotina real das empresas.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sobre-right">
+    <div class="pillar reveal d1">
+      <div class="pillar-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M4.9 4.9 7 7"/><path d="m17 17 2.1 2.1"/><path d="M3 12h3"/><path d="M18 12h3"/><circle cx="12" cy="12" r="4"/></svg>
+      </div>
+      <div class="pillar-name">Tecnologia</div>
+      <div class="pillar-desc">Código limpo, arquitetura escalável e sistemas pensados para a rotina real do negócio.</div>
+    </div>
+    <div class="pillar reveal d2">
+      <div class="pillar-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15v-4"/><path d="M12 15V8"/><path d="M16 15v-6"/></svg>
+      </div>
+      <div class="pillar-name">Estratégia</div>
+      <div class="pillar-desc">Decisões baseadas em dados, não em intuição. Métricas que guiam cada etapa.</div>
+    </div>
+    <div class="pillar reveal d3">
+      <div class="pillar-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3v3"/><rect x="5" y="7" width="14" height="11" rx="3"/><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M9 16h6"/></svg>
+      </div>
+      <div class="pillar-name">Inteligência Artificial</div>
+      <div class="pillar-desc">IA aplicada ao processo real — velocidade e qualidade sem abrir mão do controle.</div>
+    </div>
+    <div class="pillar reveal d4">
+      <div class="pillar-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M4 19V5"/><path d="m7 15 4-4 3 3 5-6"/><path d="M15 8h4v4"/></svg>
+      </div>
+      <div class="pillar-name">Resultados</div>
+      <div class="pillar-desc">Entregamos infraestrutura para crescimento organizado e acelerado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="expertise-header">
+    <div>
+      <div class="tag-label reveal" style="color:var(--copper)">Nossas soluções</div>
+      <h2 class="block-title reveal d1">
+        O que a<br><em>IAra</em> desenvolve
+      </h2>
+    </div>
+    <p class="expertise-intro reveal d2">
+      Quatro frentes de atuação integradas. Cada solução pode ser contratada isoladamente ou como parte de um ecossistema digital completo.
+    </p>
+  </div>
+  <div class="solutions-grid">
+    <div class="solution-card reveal d1">
+      <div class="sol-number">01 — Presença e Conversão</div>
+      <div class="sol-title">Landing Pages &<br>Campanhas Sociais</div>
+      <div class="sol-desc">Criação de landing pages de alto impacto e gestão estratégica de campanhas para redes sociais, focadas em autoridade de marca e aquisição de clientes.</div>
+      <ul class="sol-list">
+        <li>Landing pages de alta conversão</li>
+        <li>Copywriting estratégico com IA</li>
+        <li>Campanhas Facebook e Instagram Ads</li>
+        <li>Criativos e calendário de conteúdo</li>
+      </ul>
+    </div>
+    <div class="solution-card reveal d2">
+      <div class="sol-number">02 — Automação e Processos</div>
+      <div class="sol-title">Automação<br>Inteligente</div>
+      <div class="sol-desc">Diagnóstico e implementação de automações que eliminam tarefas repetitivas e organizam o fluxo de trabalho da sua equipe — liberando tempo para o que importa.</div>
+      <ul class="sol-list">
+        <li>Mapeamento de processos</li>
+        <li>Automações com Python e APIs</li>
+        <li>Integração entre ferramentas</li>
+        <li>Redução de trabalho manual</li>
+      </ul>
+    </div>
+    <div class="solution-card reveal d3">
+      <div class="sol-number">03 — Desenvolvimento de Software</div>
+      <div class="sol-title">Aplicações Web<br>e Mobile</div>
+      <div class="sol-desc">Engenharia de aplicativos mobile e sistemas web personalizados, projetados para serem escaláveis, seguros e intuitivos — do MVP ao produto completo.</div>
+      <ul class="sol-list">
+        <li>Sistemas web sob medida</li>
+        <li>Aplicativos mobile</li>
+        <li>APIs e integrações</li>
+        <li>Arquitetura escalável</li>
+      </ul>
+    </div>
+    <div class="solution-card reveal d4">
+      <div class="sol-number">04 — Inteligência de Dados</div>
+      <div class="sol-title">Dados e<br>Dashboards</div>
+      <div class="sol-desc">Estruturação de bancos de dados e dashboards para que cada decisão do seu negócio seja baseada em informações reais, precisas e acessíveis em tempo real.</div>
+      <ul class="sol-list">
+        <li>Modelagem de banco de dados</li>
+        <li>Dashboards com SQL e Python</li>
+        <li>Relatórios automatizados</li>
+        <li>KPIs que fazem sentido</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo">
+  <div class="tag-label reveal">Como trabalhamos</div>
+  <h2 class="block-title reveal d1">Metodologia <em>IAra</em></h2>
+  <div class="processo-inner" style="margin-top:56px">
+    <div class="processo-steps">
+      <div class="step reveal d1">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Diagnóstico</div>
+          <div class="step-desc">Entendemos o seu negócio, seus processos e seus objetivos antes de propor qualquer solução.</div>
+        </div>
+      </div>
+      <div class="step reveal d2">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Escopo e Proposta</div>
+          <div class="step-desc">Definimos o escopo exato, prazo e investimento — com transparência total antes de começar.</div>
+        </div>
+      </div>
+      <div class="step reveal d3">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Execução</div>
+          <div class="step-desc">Desenvolvemos com atualizações periódicas. Você acompanha cada etapa, sem surpresas.</div>
+        </div>
+      </div>
+      <div class="step reveal d4">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Entrega e Suporte</div>
+          <div class="step-desc">Entrega documentada com suporte pós-lançamento. O projeto está pronto quando você aprova.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metodologia reveal d2">
+      <img src="assets/iara-logo-fundo-azul.png" alt="IAra Soluções Digitais" class="brand-logo-light">
+      <div class="met-title">Por que a IAra?</div>
+      <div class="met-sub">Não entregamos apenas ferramentas. Entregamos a infraestrutura necessária para o seu negócio crescer de forma organizada e acelerada.</div>
+      <div class="met-items">
+        <div class="met-item">
+          <div class="met-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l1.4-1.4a5 5 0 0 0-7.1-7.1L10.6 5"/><path d="M14 11a5 5 0 0 0-7.1 0l-1.4 1.4a5 5 0 0 0 7.1 7.1l.8-.8"/></svg>
+          </div>
+          <div>
+            <div class="met-item-title">Visão integrada</div>
+            <div class="met-item-desc">Cada solução é pensada em conjunto — landing page, sistema e dados trabalham juntos.</div>
+          </div>
+        </div>
+        <div class="met-item">
+          <div class="met-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+          </div>
+          <div>
+            <div class="met-item-title">IA no processo, não no discurso</div>
+            <div class="met-item-desc">Usamos inteligência artificial para entregar mais rápido e com mais qualidade — de forma real e aplicada.</div>
+          </div>
+        </div>
+        <div class="met-item">
+          <div class="met-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 4h8"/><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 9h6"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>
+          </div>
+          <div>
+            <div class="met-item-title">Escopo claro desde o início</div>
+            <div class="met-item-desc">Briefing detalhado, proposta aprovada, sem mudanças de escopo sem aviso. Previsibilidade total.</div>
+          </div>
+        </div>
+        <div class="met-item">
+          <div class="met-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M4 19V5"/><path d="m7 15 4-4 3 3 5-6"/><path d="M15 8h4v4"/></svg>
+          </div>
+          <div>
+            <div class="met-item-title">Resultados mensuráveis</div>
+            <div class="met-item-desc">Todo projeto termina com métricas documentadas. Sabemos o que funcionou e o que melhorar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO -->
+<section id="portfolio">
+  <div class="portfolio-head">
+    <div>
+      <div class="tag-label reveal">Portfólio</div>
+      <h2 class="block-title reveal d1">Alguns projetos <em>selecionados</em></h2>
+    </div>
+    <p class="portfolio-note reveal d2">
+      Esta é uma amostra de projetos desenvolvidos e em desenvolvimento pela IAra Soluções Digitais. Cada entrega nasce de uma necessidade real: organizar processos, criar presença digital, automatizar rotinas e gerar mais clareza para a tomada de decisão.
+    </p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="p-card reveal d1">
+      <div class="p-thumb">
+        <div class="p-thumb-bg">QF</div>
+        <div class="p-thumb-product">
+          <img src="assets/qualiflow-logo.png" alt="Logo QualiFlow" class="qf-logo">
+          <div class="p-thumb-label">QualiFlow</div>
+        </div>
+        <span class="p-badge live">Live</span>
+      </div>
+      <div class="p-body">
+        <div class="p-cat">Sistema Web · Instalações e Operações</div>
+        <div class="p-name">QualiFlow — Planem</div>
+        <div class="p-desc">Sistema de gestão da qualidade e controle operacional para uma instaladora. Digitaliza inspeções, FVS, FVM, RDOs, pendências, evidências e assinaturas, dando mais rastreabilidade para a rotina de campo. Mais de 330 deploys em produção, em uso operacional ativo.</div>
+        <div class="p-tags">
+          <span class="p-tag">JavaScript</span>
+          <span class="p-tag">React</span>
+          <span class="p-tag">Supabase</span>
+          <span class="p-tag">Tailwind</span>
+          <span class="p-tag">Vercel</span>
+        </div>
+        <a href="https://qualiflow-planem.vercel.app" target="_blank" class="p-link">Ver aplicação →</a>
+      </div>
+    </div>
+    <div class="p-card reveal d2">
+      <div class="p-thumb" style="background:var(--navy2)">
+        <div class="p-thumb-bg">LP</div>
+        <div class="p-thumb-label" style="font-size:14px;opacity:.4;text-align:center;padding:0 32px;line-height:1.5">Lançamento digital<br>em andamento</div>
+        <span class="p-badge wip">Em andamento</span>
+      </div>
+      <div class="p-body">
+        <div class="p-cat">Landing Page + Meta Ads · Jurídico</div>
+        <div class="p-name">Produto para Advogados</div>
+        <div class="p-desc">Landing page de lançamento e campanha estruturada no Facebook e Instagram para produto jurídico especializado. Público-alvo segmentado: advogados. Métricas sendo documentadas para case study.</div>
+        <div class="p-tags">
+          <span class="p-tag">HTML/CSS</span>
+          <span class="p-tag">Claude AI</span>
+          <span class="p-tag">Meta Ads</span>
+          <span class="p-tag">Vercel</span>
+        </div>
+        <span class="p-link" style="opacity:.35;cursor:default">Resultados em breve</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <img src="assets/iara-logo-horizontal.png" alt="IAra" style="height:80px;width:auto;display:block;margin:0 auto 36px;filter:drop-shadow(0 0 24px rgba(181,112,58,.3));" class="reveal">
+    <div class="cta-kicker reveal d1">Vamos construir juntos</div>
+    <h2 class="cta-title reveal d1">
+      Seu negócio merece<br>
+      uma <em>infraestrutura</em><br>
+      à altura.
+    </h2>
+    <p class="cta-sub reveal d2">
+      Conte o seu desafio. Em até 24 horas você recebe um diagnóstico inicial e uma proposta clara, sem compromisso.
+    </p>
+    <div class="cta-buttons reveal d3">
+      <a href="mailto:eng.iaraspereira@gmail.com" class="btn-white">Solicitar diagnóstico gratuito</a>
+      <a href="https://wa.me/5511000000000" class="btn-border-white">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="assets/iara-logo-horizontal.png" alt="IAra Soluções Digitais" style="height:44px;width:auto;margin-bottom:14px;opacity:.75;filter:brightness(1.2);">
+      <div class="footer-tagline">Tecnologia e estratégia para negócios que querem crescer de forma organizada e acelerada.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Soluções</div>
+      <ul class="footer-col-links">
+        <li><a href="#expertise">Landing Pages</a></li>
+        <li><a href="#expertise">Automação</a></li>
+        <li><a href="#expertise">Desenvolvimento</a></li>
+        <li><a href="#expertise">Dados e Dashboards</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Empresa</div>
+      <ul class="footer-col-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contato</div>
+      <ul class="footer-col-links">
+        <li><a href="mailto:eng.iaraspereira@gmail.com">E-mail</a></li>
+        <li><a href="https://wa.me/5511000000000">WhatsApp</a></li>
+        <li><a href="https://linkedin.com/in/iara-pereira-91112b258" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/engiaraspereira-pixel" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 IAra Soluções Digitais. Todos os direitos reservados.</span>
+    <span class="footer-slogan">Tecnologia · Inteligência · Resultados</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 48);
+});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+setTimeout(() => {
+  document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+}, 80);
+</script>
+</body>
+</html>
