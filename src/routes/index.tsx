@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -28,30 +27,6 @@ const WHATSAPP_URL =
 const INSTAGRAM_URL =
   "https://www.instagram.com/iara.solucoesdigitais?igsh=MXZ1dHM0ZTVqYnM1Mg%3D%3D&utm_source=qr";
 
-export const Route = createFileRoute("/")({
-  component: Landing,
-  head: () => ({
-    meta: [
-      {
-        title:
-          "IAra Soluções Digitais | Tecnologia, inteligência e resultados",
-      },
-      {
-        name: "description",
-        content:
-          "Landing pages, automações, sistemas web e campanhas digitais para empresas que querem crescer com tecnologia e estratégia.",
-      },
-      { property: "og:title", content: "IAra Soluções Digitais" },
-      {
-        property: "og:description",
-        content:
-          "Tecnologia, inteligência e resultados para estruturar presença digital, operação e captação.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-});
 
 function Logo({ className = "h-11" }: { className?: string }) {
   return (
@@ -705,7 +680,7 @@ function Footer() {
   );
 }
 
-function Landing() {
+export function Landing() {
   useReveal();
 
   useEffect(() => {
