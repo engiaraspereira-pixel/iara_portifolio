@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logoIara from "@/assets/iara-logo-tech-transparente.png";
 import visualIara from "@/assets/iara-visual.png";
 import workLaptop from "@/assets/work-1.jpg";
 import portfolioQualiflow from "@/assets/portfolio-qualiflow.svg";
 import portfolioAdvogado from "@/assets/portfolio-advogado.svg";
 import portfolioBallet from "@/assets/portfolio-ballet.svg";
+import techAi from "@/assets/tech-ai-creation.svg";
 
 const WHATSAPP_URL =
   "https://wa.me/5511978856858?text=Ol%C3%A1%2C%20Iara.%20Quero%20conversar%20sobre%20um%20projeto%20digital.";
@@ -53,6 +54,47 @@ function RotatingWord({ words }: { words: string[] }) {
 }
 
 function Globe() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let rAF: number;
+    let targetRX = 0, targetRY = 0;
+    let currentRX = 0, currentRY = 0;
+    let hovering = false;
+
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      targetRX = -((e.clientY - rect.top - cy) / cy) * 24;
+      targetRY = ((e.clientX - rect.left - cx) / cx) * 24;
+    };
+    const onEnter = () => { hovering = true; };
+    const onLeave = () => { hovering = false; targetRX = 0; targetRY = 0; };
+
+    const tick = () => {
+      const ease = hovering ? 0.10 : 0.04;
+      currentRX += (targetRX - currentRX) * ease;
+      currentRY += (targetRY - currentRY) * ease;
+      el.style.transform = `perspective(900px) rotateX(${currentRX}deg) rotateY(${currentRY}deg)`;
+      rAF = requestAnimationFrame(tick);
+    };
+
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseenter", onEnter);
+    el.addEventListener("mouseleave", onLeave);
+    rAF = requestAnimationFrame(tick);
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseenter", onEnter);
+      el.removeEventListener("mouseleave", onLeave);
+      cancelAnimationFrame(rAF);
+    };
+  }, []);
+
   const latLines = [
     { cy: 60, rx: 122, ry: 22 },
     { cy: 108, rx: 163, ry: 30 },
@@ -66,7 +108,7 @@ function Globe() {
   const lonCxValues = Array.from({ length: 26 }, (_, i) => -200 + i * 40);
 
   return (
-    <div className="globe-container">
+    <div className="globe-container" ref={containerRef}>
       <svg viewBox="0 0 400 400" className="globe-svg" aria-hidden="true">
         <defs>
           <clipPath id="globe-clip">
@@ -498,6 +540,58 @@ function About() {
   );
 }
 
+function PhoneMockup({ img, alt, className = "" }: { img: string; alt: string; className?: string }) {
+  return (
+    <div className={`phone-mockup ${className}`}>
+      <div className="phone-frame">
+        <div className="phone-notch" />
+        <div className="phone-screen">
+          <img src={img} alt={alt} />
+        </div>
+      </div>
+      <div className="phone-shadow" />
+    </div>
+  );
+}
+
+function WhyChoose() {
+  const items = [
+    "Atendimento direto, sem intermediários",
+    "Sites que convertem, não apenas impressionam",
+    "Automações que liberam o seu tempo",
+    "Campanhas com foco em retorno real",
+  ];
+  return (
+    <section className="section why-section">
+      <div className="why-copy reveal-left">
+        <span className="eyebrow-label">Por que me escolher</span>
+        <h2>Tecnologia, estratégia e execução no mesmo lugar.</h2>
+        <ul className="why-list">
+          {items.map((item) => (
+            <li key={item}>
+              <span className="why-dot" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="primary-button"
+        >
+          Começar agora
+        </a>
+      </div>
+      <div className="why-phones reveal-right">
+        <PhoneMockup img={portfolioQualiflow} alt="Sistema Qualiflow" className="phone-1" />
+        <PhoneMockup img={techAi} alt="IA aplicada" className="phone-2" />
+        <PhoneMockup img={portfolioBallet} alt="Projeto Ballet" className="phone-3" />
+      </div>
+    </section>
+  );
+}
+
 const TESTIMONIALS = [
   {
     name: "Ana Carla M.",
@@ -661,6 +755,7 @@ export function Landing() {
         <Marquee />
         <Services />
         <Portfolio />
+        <WhyChoose />
         <About />
         <Testimonials />
         <Faq />

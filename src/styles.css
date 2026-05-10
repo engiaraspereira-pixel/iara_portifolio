@@ -252,12 +252,12 @@
 
 .eyebrow {
   display: inline-flex;
-  min-height: 46px;
+  min-height: 40px;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   color: var(--copper);
-  font-size: clamp(1.35rem, 2.2vw, 2.2rem);
+  font-size: clamp(1.1rem, 1.7vw, 1.75rem);
   font-weight: 700;
 }
 
@@ -279,7 +279,7 @@
 .typing-caret {
   display: inline-block;
   width: 3px;
-  height: 44px;
+  height: 36px;
   border-radius: 2px;
   background: var(--navy);
   animation: blink 1s step-end infinite;
@@ -290,9 +290,9 @@
   max-width: 860px;
   margin: 0;
   color: var(--navy);
-  font-size: clamp(3rem, 6.2vw, 6.6rem);
+  font-size: clamp(2.4rem, 4.8vw, 5.2rem);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 1.02;
   letter-spacing: -0.025em;
 }
 
@@ -416,6 +416,12 @@
   width: clamp(280px, 42vw, 480px);
   height: clamp(280px, 42vw, 480px);
   flex-shrink: 0;
+  transform-style: preserve-3d;
+  cursor: grab;
+}
+
+.globe-container:active {
+  cursor: grabbing;
 }
 
 .globe-svg {
@@ -524,7 +530,7 @@
 .section-heading h2 {
   margin: 12px 0 0;
   color: var(--navy);
-  font-size: clamp(2.2rem, 4.2vw, 4.8rem);
+  font-size: clamp(1.9rem, 3.2vw, 3.8rem);
   font-weight: 900;
   line-height: 1.06;
   letter-spacing: -0.02em;
@@ -803,7 +809,7 @@
 .about-copy h2 {
   margin: 12px 0 0;
   color: var(--navy);
-  font-size: clamp(2.2rem, 3.6vw, 4rem);
+  font-size: clamp(1.8rem, 2.8vw, 3.2rem);
   font-weight: 900;
   line-height: 1.06;
   letter-spacing: -0.02em;
@@ -1197,6 +1203,175 @@
   to { transform: translateX(0); }
 }
 
+/* ─── Why Choose ────────────────────────────────────────── */
+
+.why-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(48px, 6vw, 96px);
+  align-items: center;
+  background: var(--navy);
+  overflow: hidden;
+}
+
+.why-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.why-section .eyebrow-label {
+  color: var(--copper);
+}
+
+.why-copy h2 {
+  margin: 12px 0 0;
+  color: #fff;
+  font-size: clamp(1.8rem, 2.8vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.why-list {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.why-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.why-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 10px rgba(217, 144, 85, 0.5);
+}
+
+.why-section .primary-button {
+  align-self: flex-start;
+  background: var(--copper);
+  color: var(--navy);
+}
+
+.why-section .primary-button:hover {
+  background: #fff;
+}
+
+/* ─── Phone Mockups ──────────────────────────────────────── */
+
+.why-phones {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 0;
+  height: 520px;
+}
+
+.phone-mockup {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phone-frame {
+  position: relative;
+  width: 150px;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 28px;
+  background: #0f0f0f;
+  border: 6px solid #1c1c1e;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 32px 64px rgba(0, 0, 0, 0.45),
+    0 8px 20px rgba(0, 0, 0, 0.30);
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 16px;
+  border-radius: 10px;
+  background: #0f0f0f;
+  z-index: 2;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.phone-shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  filter: blur(10px);
+}
+
+.phone-1 {
+  transform: rotate(-10deg) translateY(20px);
+  animation: phone-float-1 5.2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.phone-2 {
+  transform: scale(1.12);
+  animation: phone-float-2 6s ease-in-out infinite 0.4s;
+  z-index: 3;
+}
+
+.phone-3 {
+  transform: rotate(10deg) translateY(28px);
+  animation: phone-float-3 4.8s ease-in-out infinite 0.8s;
+  z-index: 2;
+}
+
+@keyframes phone-float-1 {
+  0%, 100% { transform: rotate(-10deg) translateY(20px); }
+  50% { transform: rotate(-10deg) translateY(2px); }
+}
+
+@keyframes phone-float-2 {
+  0%, 100% { transform: scale(1.12) translateY(0); }
+  50% { transform: scale(1.12) translateY(-18px); }
+}
+
+@keyframes phone-float-3 {
+  0%, 100% { transform: rotate(10deg) translateY(28px); }
+  50% { transform: rotate(10deg) translateY(10px); }
+}
+
 /* ─── Responsive ─────────────────────────────────────────── */
 
 @media (max-width: 1100px) {
@@ -1258,6 +1433,19 @@
 
   .about-section {
     grid-template-columns: 1fr;
+  }
+
+  .why-section {
+    grid-template-columns: 1fr;
+  }
+
+  .why-phones {
+    height: 380px;
+    justify-content: center;
+  }
+
+  .phone-frame {
+    width: 120px;
   }
 
   .testimonials-grid {
