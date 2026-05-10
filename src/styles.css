@@ -717,3 +717,335 @@
   line-height: 1.75;
   color: rgba(7, 28, 70, 0.65);
 }
+
+/* ── Hero light ── */
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 2rem;
+  background: #d99055;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink 1s step-end infinite;
+}
+
+.hero-grid-light {
+  background-image:
+    linear-gradient(rgba(7, 28, 70, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7, 28, 70, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(7, 28, 70, 0.1);
+  background: #ffffff;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #071c46;
+  box-shadow: 0 4px 16px rgba(7, 28, 70, 0.06);
+}
+
+.btn-light-primary {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  background: #071c46;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.btn-light-primary:hover {
+  background: #d99055;
+  color: #071c46;
+  transform: translateY(-2px);
+}
+
+.btn-light-outline {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  border: 2px solid #071c46;
+  color: #071c46;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.btn-light-outline:hover {
+  background: #071c46;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ── Big marquee ── */
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.big-marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 24s linear infinite;
+}
+
+.big-marquee-track-reverse {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee-reverse 24s linear infinite;
+}
+
+.big-marquee-item {
+  font-family: var(--font-display);
+  font-size: 3.75rem;
+  font-weight: 900;
+  color: rgba(7, 28, 70, 0.1);
+  padding: 0 0.5rem;
+}
+
+.big-marquee-item--faded {
+  color: rgba(7, 28, 70, 0.06);
+}
+
+.big-marquee-sep {
+  color: #d99055;
+  opacity: 0.5;
+}
+
+/* ── Services ── */
+
+.service-featured {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #071c46;
+  min-height: 22rem;
+}
+
+.service-featured-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+}
+
+.service-featured-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.5rem;
+  justify-content: flex-end;
+}
+
+.service-mini {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: 1.25rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(7, 28, 70, 0.08);
+  background: #ffffff;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(7, 28, 70, 0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.service-mini:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(7, 28, 70, 0.1);
+}
+
+.service-grid-card {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(7, 28, 70, 0.08);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(7, 28, 70, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.service-grid-card:hover {
+  transform: translateY(-6px);
+}
+
+.service-grid-img-wrap {
+  position: relative;
+  height: 12rem;
+  overflow: hidden;
+}
+
+.service-grid-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.service-grid-card:hover .service-grid-img-wrap img {
+  transform: scale(1.06);
+}
+
+.service-grid-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 28, 70, 0.58);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-grid-card:hover .service-grid-overlay {
+  opacity: 1;
+}
+
+.service-acessar-btn {
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  padding: 0.6rem 1.75rem;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: background 0.2s ease;
+}
+
+.service-acessar-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Portfolio overlay ── */
+
+.portfolio-overlay-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #0a0a0a;
+  transition: transform 0.35s ease;
+}
+
+.portfolio-overlay-card:hover {
+  transform: translateY(-6px);
+}
+
+.portfolio-overlay-img-wrap {
+  position: relative;
+  height: 16rem;
+  overflow: hidden;
+}
+
+.portfolio-overlay-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition:
+    opacity 0.45s ease,
+    transform 0.7s ease;
+}
+
+.portfolio-overlay-card:hover .portfolio-overlay-img {
+  opacity: 0.35;
+  transform: scale(1.06);
+}
+
+.portfolio-overlay-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.portfolio-overlay-card:hover .portfolio-overlay-layer {
+  opacity: 1;
+}
+
+.portfolio-acessar-btn {
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  padding: 0.8rem 2rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: background 0.2s ease;
+}
+
+.portfolio-acessar-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.portfolio-tag-pill {
+  display: inline-flex;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+@media (max-width: 767px) {
+  .big-marquee-item {
+    font-size: 2.5rem;
+  }
+
+  .service-featured {
+    min-height: 18rem;
+  }
+}

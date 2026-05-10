@@ -1,24 +1,78 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  ArrowLeft,
-  ArrowRight,
   ArrowUpRight,
-  Bot,
   ChevronDown,
   Clock,
-  LayoutDashboard,
   Menu,
   MessageCircle,
-  MousePointerClick,
-  Rocket,
   Shield,
   Star,
   Target,
   TrendingUp,
   Workflow,
   X,
-  Zap,
 } from "lucide-react";
+import logoIara from "@/assets/iara-logo-tech-transparente.png";
+import techAiCreation from "@/assets/tech-ai-creation.svg";
+import portfolioQualiflow from "@/assets/portfolio-qualiflow.svg";
+import portfolioAdvogado from "@/assets/portfolio-advogado.svg";
+import portfolioBallet from "@/assets/portfolio-ballet.svg";
+import profileIara from "@/assets/iara-perfil.png";
+
+const WHATSAPP_URL =
+  "https://wa.me/5511978856858?text=Ol%C3%A1%2C%20Iara.%20Quero%20conversar%20sobre%20um%20projeto%20digital.";
+
+const INSTAGRAM_URL =
+  "https://www.instagram.com/iara.solucoesdigitais?igsh=MXZ1dHM0ZTVqYnM1Mg%3D%3D&utm_source=qr";
+
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+}
+
+function RotatingWord({ words }: { words: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setVisible(false);
+      const tid = window.setTimeout(() => {
+        setIndex((i) => (i + 1) % words.length);
+        setVisible(true);
+      }, 380);
+      return () => window.clearTimeout(tid);
+    }, 2600);
+    return () => clearInterval(id);
+  }, [words.length]);
+
+  return (
+    <span
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(8px)",
+        transition: "opacity 0.38s ease, transform 0.38s ease",
+        display: "inline-block",
+      }}
+    >
+      {words[index]}
+    </span>
+  );
+}
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -37,46 +91,10 @@ function InstagramIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import logoIara from "@/assets/iara-logo-tech-transparente.png";
-import heroBg from "@/assets/hero-bg.jpg";
-import techAiCreation from "@/assets/tech-ai-creation.svg";
-import portfolioQualiflow from "@/assets/portfolio-qualiflow.svg";
-import portfolioAdvogado from "@/assets/portfolio-advogado.svg";
-import portfolioBallet from "@/assets/portfolio-ballet.svg";
-import profileIara from "@/assets/iara-perfil.png";
-
-const WHATSAPP_URL =
-  "https://wa.me/5511978856858?text=Ol%C3%A1%2C%20Iara.%20Quero%20conversar%20sobre%20um%20projeto%20digital.";
-
-const INSTAGRAM_URL =
-  "https://www.instagram.com/iara.solucoesdigitais?igsh=MXZ1dHM0ZTVqYnM1Mg%3D%3D&utm_source=qr";
-
-function useReveal() {
-  useEffect(() => {
-    const elements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 },
-    );
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
 
 function Logo({ className = "h-12" }: { className?: string }) {
   return (
-    <img
-      src={logoIara}
-      alt="IAra Soluções Digitais"
-      className={`${className} w-auto object-contain`}
-    />
+    <img src={logoIara} alt="IAra Soluções Digitais" className={`${className} w-auto object-contain`} />
   );
 }
 
@@ -85,10 +103,10 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", fn, { passive: true });
+    fn();
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   const links = [
@@ -109,27 +127,21 @@ function Header() {
     >
       <div className="mx-auto grid h-20 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 md:px-8">
         <nav className="hidden items-center gap-8 lg:flex">
-          {links.map(([href, label], index) => (
+          {links.map(([href, label], i) => (
             <a
               key={href}
               href={href}
               className={`link-underline text-[15px] font-semibold transition-colors ${
-                index === 0 ? "text-[#d99055]" : "text-white/82 hover:text-white"
+                i === 0 ? "text-[#d99055]" : "text-white/82 hover:text-white"
               }`}
             >
               {label}
             </a>
           ))}
         </nav>
-
-        <a
-          href="#inicio"
-          aria-label="IAra Soluções Digitais"
-          className="justify-self-start lg:justify-self-center"
-        >
+        <a href="#inicio" aria-label="IAra" className="justify-self-start lg:justify-self-center">
           <Logo className="h-12 sm:h-14" />
         </a>
-
         <div className="flex items-center justify-end gap-3">
           <a
             href={INSTAGRAM_URL}
@@ -166,7 +178,6 @@ function Header() {
           </button>
         </div>
       </div>
-
       {open && (
         <nav className="border-t border-white/10 bg-[#071c46] px-5 py-7 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-5">
@@ -197,106 +208,67 @@ function Header() {
 }
 
 function Hero() {
+  const words = ["Websites", "Landing Pages", "Sistemas Web", "Automações", "Campanhas"];
+
   return (
-    <section id="inicio" className="relative isolate overflow-hidden bg-[#071c46]">
-      <img
-        src={heroBg}
-        alt=""
-        className="absolute inset-0 -z-20 h-full w-full object-cover opacity-28"
-        loading="eager"
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#071c46] via-[#071c46]/95 to-[#0b3471]/80" />
-      <div className="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-22" />
+    <section id="inicio" className="relative overflow-hidden bg-[#fbfaf7]">
+      <div className="hero-grid-light absolute inset-0" />
 
-      {/* Decorative rings */}
-      <div className="pointer-events-none absolute -right-40 top-[12%] h-[700px] w-[700px] rounded-full border border-[#d99055]/7" />
-      <div className="pointer-events-none absolute -right-20 top-[18%] h-[500px] w-[500px] rounded-full border border-[#d99055]/11" />
-      <div className="pointer-events-none absolute -right-4 top-[24%] h-[340px] w-[340px] rounded-full border border-[#d99055]/16" />
+      <div className="relative mx-auto max-w-5xl px-5 pb-0 pt-20 text-center md:px-8 md:pt-28">
+        {/* Rotating word + blinking cursor */}
+        <div className="mb-5 flex items-center justify-center gap-2">
+          <span className="font-display text-2xl font-bold text-[#d99055] sm:text-3xl">
+            <RotatingWord words={words} />
+          </span>
+          <span className="cursor-blink" />
+        </div>
 
-      <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-center gap-10 px-5 py-16 md:px-8 lg:grid-cols-2 lg:gap-16 lg:py-20">
-        {/* Left */}
-        <div className="reveal">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#d99055]/35 bg-[#d99055]/10 px-5 py-2.5">
-            <Zap className="h-4 w-4 text-[#d99055]" />
-            <span className="text-sm font-semibold text-[#d99055]">
-              Agência Digital · IAra Soluções
-            </span>
+        <h1 className="text-balance font-display text-5xl font-black leading-[1.05] text-[#071c46] sm:text-6xl lg:text-[5.5rem]">
+          Presença digital que{" "}
+          <br className="hidden sm:block" />
+          <span className="text-gradient">realmente converte.</span>
+        </h1>
+
+        <p className="mx-auto mt-7 max-w-2xl text-xl leading-relaxed text-[#071c46]/58">
+          Landing pages, campanhas, automações e sistemas web para empresas que querem crescer com
+          estratégia e tecnologia.
+        </p>
+
+        <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-light-primary"
+          >
+            QUERO MEU PROJETO
+            <ArrowUpRight className="h-5 w-5" />
+          </a>
+          <a href="#cases" className="btn-light-outline">
+            VER PORTFÓLIO
+          </a>
+        </div>
+
+        {/* Three pills */}
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="hero-pill">
+            <Target className="h-4 w-4 text-[#d99055]" />
+            <span>Estratégia Personalizada</span>
           </div>
-
-          <h1 className="text-balance font-display text-4xl font-black leading-[1.06] text-white sm:text-5xl lg:text-[4.75rem]">
-            Presença digital que{" "}
-            <span className="text-gradient">realmente converte.</span>
-          </h1>
-
-          <p className="mt-7 max-w-xl text-lg leading-relaxed text-white/68">
-            Landing pages, campanhas, automações e sistemas web para empresas que querem crescer com
-            estratégia, tecnologia e execução próxima.
-          </p>
-
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary group"
-            >
-              Quero meu projeto
-              <ArrowUpRight className="h-5 w-5 transition-transform group-hover:rotate-45" />
-            </a>
-            <a href="#cases" className="btn-outline">
-              Ver portfólio
-            </a>
+          <div className="hero-pill">
+            <Clock className="h-4 w-4 text-[#d99055]" />
+            <span>Entregas Pontuais</span>
           </div>
-
-          {/* Stats */}
-          <div className="mt-12 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-10">
-            {[
-              ["50+", "Projetos"],
-              ["30+", "Clientes"],
-              ["100%", "Comprometimento"],
-            ].map(([num, label]) => (
-              <div key={label} className="px-4 first:pl-0 last:pr-0">
-                <div className="font-display text-3xl font-black text-[#d99055] lg:text-4xl">
-                  {num}
-                </div>
-                <div className="mt-1 text-sm text-white/50">{label}</div>
-              </div>
-            ))}
+          <div className="hero-pill">
+            <Shield className="h-4 w-4 text-[#d99055]" />
+            <span>Atendimento Direto</span>
           </div>
         </div>
 
-        {/* Right */}
-        <div className="reveal-right relative hidden min-h-[520px] lg:block">
-          <div className="absolute right-0 top-0 w-[73%] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-            <img
-              src={techAiCreation}
-              alt="Tecnologia e inteligência artificial aplicada"
-              className="aspect-[1.4/1] w-full object-cover"
-            />
-          </div>
-
-          <div className="glass-panel animate-float absolute left-0 top-14 w-[46%] p-5">
-            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#d99055]">
-              Serviços
-            </span>
-            <div className="mt-4 space-y-2.5">
-              {["Landing Pages", "Meta Ads", "Automação", "Sistemas Web"].map((s, i) => (
-                <div
-                  key={s}
-                  className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/6 px-3 py-2"
-                >
-                  <span className="text-xs font-black text-[#d99055]/70">0{i + 1}</span>
-                  <span className="text-sm font-medium text-white/85">{s}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass-light animate-float-alt absolute bottom-8 right-4 w-[54%] p-6">
-            <Rocket className="h-6 w-6 text-[#d99055]" />
-            <p className="mt-3 font-display text-xl font-bold leading-snug text-[#071c46]">
-              Do briefing ao resultado em tempo recorde.
-            </p>
+        {/* Mockup image peeking at bottom */}
+        <div className="mx-auto mt-14 max-w-5xl">
+          <div className="overflow-hidden rounded-t-3xl border border-b-0 border-[#071c46]/10 shadow-[0_-8px_60px_rgba(7,28,70,0.1)]">
+            <img src={techAiCreation} alt="IAra — projetos digitais" className="w-full" />
           </div>
         </div>
       </div>
@@ -304,24 +276,32 @@ function Hero() {
   );
 }
 
-function CapabilityStrip() {
+function BigMarquee() {
   const items = [
     "Landing Pages",
     "Meta Ads",
     "Automações",
     "Sistemas Web",
-    "Dashboards",
-    "Conteúdo",
-    "Funis",
-    "IA aplicada",
+    "IA Aplicada",
+    "Funis de Venda",
   ];
+
   return (
-    <section className="border-y border-[#071c46]/8 bg-white py-10">
+    <section className="overflow-hidden border-y border-[#071c46]/8 bg-white py-10">
+      <div className="marquee mb-2">
+        <div className="big-marquee-track">
+          {[...items, ...items].map((item, i) => (
+            <span key={i} className="big-marquee-item">
+              {item}&nbsp;<span className="big-marquee-sep">·</span>&nbsp;
+            </span>
+          ))}
+        </div>
+      </div>
       <div className="marquee">
-        <div className="marquee-track">
-          {[...items, ...items].map((item, index) => (
-            <span key={`${item}-${index}`} className="brand-chip">
-              {item}
+        <div className="big-marquee-track-reverse">
+          {[...items, ...items].map((item, i) => (
+            <span key={i} className="big-marquee-item big-marquee-item--faded">
+              {item}&nbsp;<span className="big-marquee-sep">·</span>&nbsp;
             </span>
           ))}
         </div>
@@ -330,194 +310,144 @@ function CapabilityStrip() {
   );
 }
 
-function ValueProps() {
-  const pillars = [
-    {
-      icon: Target,
-      title: "Estratégia personalizada",
-      desc: "Cada projeto começa com entendimento profundo do negócio. Sem template, sem atalho — só o que faz sentido para o seu momento.",
-    },
-    {
-      icon: Clock,
-      title: "Entregas pontuais",
-      desc: "Processos claros, comunicação constante e cronograma respeitado. Você sabe exatamente o que esperar e quando.",
-    },
-    {
-      icon: Shield,
-      title: "Atendimento direto",
-      desc: "Você fala com quem executa. Sem intermediários, sem times descoordenados — só parceria de verdade.",
-    },
-  ];
-
+function Services() {
   return (
-    <section className="bg-white py-24 lg:py-28">
+    <section id="solucoes" className="bg-[#fbfaf7] py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="reveal mb-14 text-center">
-          <div className="section-label-dark">Por que a IAra?</div>
-          <h2 className="mt-4 font-display text-3xl font-bold text-[#071c46] lg:text-5xl">
-            O que faz nosso trabalho diferente
+        <div className="reveal mb-14">
+          <div className="section-label-dark">Tudo em um só lugar</div>
+          <h2 className="mt-4 max-w-3xl text-balance font-display text-4xl font-bold text-[#071c46] lg:text-6xl">
+            Nossos serviços digitais
           </h2>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[#071c46]/58">
+            Soluções completas para estruturar presença, gerar leads e automatizar operações — com
+            estratégia, tecnologia e execução próxima.
+          </p>
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {pillars.map((p, index) => {
-            const Icon = p.icon;
-            return (
-              <article key={p.title} className={`value-card reveal delay-${index + 1}`}>
-                <div className="value-icon-wrap">
-                  <Icon className="h-6 w-6 text-[#d99055]" />
-                </div>
-                <h3 className="mt-6 font-display text-xl font-bold text-[#071c46]">{p.title}</h3>
-                <p className="mt-3 leading-relaxed text-[#071c46]/60">{p.desc}</p>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
-function Solutions() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const cards = [
-    {
-      icon: MousePointerClick,
-      title: "Landing pages que convertem",
-      desc: "Narrativa, layout e CTA pensados para transformar visitantes em conversas reais.",
-    },
-    {
-      icon: TrendingUp,
-      title: "Campanhas com intenção",
-      desc: "Meta Ads, criativos e calendário conectados com uma oferta clara e mensurável.",
-    },
-    {
-      icon: Workflow,
-      title: "Automação de processos",
-      desc: "Fluxos para reduzir trabalho manual, organizar dados e acelerar atendimento.",
-    },
-    {
-      icon: LayoutDashboard,
-      title: "Sistemas e painéis",
-      desc: "Aplicações sob medida para operações que já não cabem em planilhas.",
-    },
-    {
-      icon: Bot,
-      title: "IA aplicada",
-      desc: "Uso prático de inteligência artificial para conteúdo, análise e produtividade.",
-    },
-  ];
-
-  function scrollSolutions(direction: "previous" | "next") {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-    const card = carousel.querySelector<HTMLElement>(".solution-card");
-    const amount = card ? card.offsetWidth + 28 : carousel.clientWidth * 0.82;
-    carousel.scrollBy({ left: direction === "next" ? amount : -amount, behavior: "smooth" });
-  }
-
-  return (
-    <section
-      id="solucoes"
-      className="relative overflow-hidden bg-[#071c46] py-24 text-white lg:py-32"
-    >
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="reveal">
-            <div className="section-label">Tudo em um só lugar</div>
-            <h2 className="mt-5 max-w-3xl text-balance font-display text-4xl font-bold leading-tight lg:text-6xl">
-              Soluções digitais completas para o seu negócio.
-            </h2>
-          </div>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline shrink-0"
-          >
-            Falar sobre meu projeto
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </div>
-      </div>
-
-      <button
-        type="button"
-        className="carousel-arrow carousel-arrow-left"
-        aria-label="Voltar"
-        onClick={() => scrollSolutions("previous")}
-      >
-        <ArrowLeft className="h-6 w-6" />
-      </button>
-
-      <div className="relative">
-        <div ref={carouselRef} className="scroll-row solution-carousel px-5 md:px-8">
-          {cards.map((card, index) => {
-            const Icon = card.icon;
-            return (
-              <article
-                key={card.title}
-                className={`solution-card reveal delay-${(index % 5) + 1}`}
+        {/* Top: featured dark card + two mini cards */}
+        <div className="mb-4 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+          <div className="service-featured reveal-left">
+            <img src={techAiCreation} alt="" className="service-featured-img" />
+            <div className="service-featured-content">
+              <span className="inline-block rounded-full border border-[#d99055]/50 bg-[#d99055]/12 px-4 py-1 text-xs font-bold uppercase tracking-widest text-[#d99055]">
+                Principal
+              </span>
+              <h3 className="mt-4 font-display text-3xl font-bold text-white lg:text-4xl">
+                Landing Pages e Sites
+              </h3>
+              <p className="mt-3 text-white/68 leading-relaxed">
+                Narrativa, layout e CTA pensados para transformar visitantes em clientes reais.
+              </p>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#d99055] hover:opacity-75 transition-opacity"
               >
-                <div className="solution-icon-wrap">
-                  <Icon className="h-6 w-6 text-[#d99055]" />
+                Saiba mais <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div className="service-mini reveal delay-1">
+              <TrendingUp className="h-8 w-8 shrink-0 text-[#d99055]" />
+              <div>
+                <h4 className="font-display text-xl font-bold text-[#071c46]">
+                  Meta Ads e Campanhas
+                </h4>
+                <p className="mt-1.5 text-sm leading-relaxed text-[#071c46]/58">
+                  Estratégias pagas com foco em retorno real e mensurável.
+                </p>
+              </div>
+            </div>
+            <div className="service-mini reveal delay-2">
+              <Workflow className="h-8 w-8 shrink-0 text-[#d99055]" />
+              <div>
+                <h4 className="font-display text-xl font-bold text-[#071c46]">
+                  Automação de Processos
+                </h4>
+                <p className="mt-1.5 text-sm leading-relaxed text-[#071c46]/58">
+                  Fluxos inteligentes para ganhar tempo e escalar com menos esforço.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom: 3 white cards with image + overlay */}
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            {
+              image: portfolioQualiflow,
+              title: "Sistemas Web",
+              desc: "Aplicações sob medida para operações que cresceram além das planilhas.",
+            },
+            {
+              image: portfolioAdvogado,
+              title: "Conteúdo Orgânico",
+              desc: "Presença orgânica com estratégia de conteúdo que educa e converte.",
+            },
+            {
+              image: portfolioBallet,
+              title: "IA Aplicada",
+              desc: "Inteligência artificial para produtividade, atendimento e análise de dados.",
+            },
+          ].map((s, i) => (
+            <div key={s.title} className={`service-grid-card reveal delay-${i + 1}`}>
+              <div className="service-grid-img-wrap">
+                <img src={s.image} alt={s.title} />
+                <div className="service-grid-overlay">
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="service-acessar-btn"
+                  >
+                    SAIBA MAIS
+                  </a>
                 </div>
-                <h3 className="mt-10 font-display text-2xl font-bold leading-tight text-white">
-                  {card.title}
-                </h3>
-                <p className="mt-4 text-base leading-relaxed text-white/70">{card.desc}</p>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-bold text-[#d99055] transition-opacity hover:opacity-75"
-                >
-                  Saiba mais <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </article>
-            );
-          })}
+              </div>
+              <div className="p-6">
+                <h4 className="font-display text-xl font-bold text-[#071c46]">{s.title}</h4>
+                <p className="mt-2 text-sm leading-relaxed text-[#071c46]/58">{s.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      <button
-        type="button"
-        className="carousel-arrow carousel-arrow-right"
-        aria-label="Avançar"
-        onClick={() => scrollSolutions("next")}
-      >
-        <ArrowRight className="h-6 w-6" />
-      </button>
     </section>
   );
 }
 
 function Method() {
   const steps = [
-    [
-      "Diagnóstico",
-      "Entender o negócio, a oferta, o público e o que precisa destravar primeiro.",
-    ],
-    ["Estratégia", "Desenhar a jornada, as páginas, os canais, os dados e as integrações."],
-    ["Execução", "Criar layout, código, campanhas, automações e publicação com acabamento."],
-    ["Evolução", "Medir, ajustar e adicionar novas peças conforme o projeto ganha tração."],
+    ["01", "Diagnóstico", "Entender o negócio, a oferta, o público e o que precisa destravar."],
+    ["02", "Estratégia", "Desenhar a jornada, as páginas, os canais e as integrações."],
+    ["03", "Execução", "Criar layout, código, campanhas e automações com acabamento."],
+    ["04", "Evolução", "Medir, ajustar e adicionar novas peças conforme o projeto cresce."],
   ];
 
   return (
-    <section id="metodo" className="bg-[#fbfaf7] py-24 lg:py-32">
+    <section id="metodo" className="bg-[#071c46] py-24 text-white lg:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="reveal mb-14 max-w-3xl">
-          <div className="section-label-dark">Método IAra</div>
-          <h2 className="mt-5 text-balance font-display text-4xl font-bold leading-tight text-[#071c46] lg:text-6xl">
+          <div className="section-label">Método IAra</div>
+          <h2 className="mt-5 text-balance font-display text-4xl font-bold leading-tight lg:text-6xl">
             Do briefing ao crescimento, passo a passo.
           </h2>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map(([title, desc], index) => (
-            <article key={title} className={`method-card reveal delay-${index + 1}`}>
-              <div className="method-number">{String(index + 1).padStart(2, "0")}</div>
-              <h3 className="mt-8 font-display text-2xl font-bold text-[#071c46]">{title}</h3>
-              <p className="mt-4 leading-relaxed text-[#071c46]/60">{desc}</p>
-            </article>
+        <div className="grid gap-px bg-white/10 md:grid-cols-4">
+          {steps.map(([num, title, desc], index) => (
+            <div
+              key={title}
+              className={`reveal delay-${index + 1} flex flex-col gap-6 bg-[#071c46] p-8 hover:bg-[#0b3471] transition-colors duration-300`}
+            >
+              <span className="font-display text-6xl font-black text-[#d99055]/30">{num}</span>
+              <h3 className="font-display text-2xl font-bold">{title}</h3>
+              <p className="text-sm leading-relaxed text-white/58">{desc}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -528,36 +458,33 @@ function Method() {
 function Portfolio() {
   const projects = [
     {
-      tag: "Sistema Web · IA",
+      tags: ["Sistema Web", "IA"],
       title: "Qualiflow",
       desc: "Produto próprio para qualificação, organização de dados e apoio a fluxos internos.",
       image: portfolioQualiflow,
-      badge: "Em desenvolvimento",
     },
     {
-      tag: "Landing Page · Meta Ads",
+      tags: ["Landing Page", "Meta Ads"],
       title: "Adriano Oliveira Farias",
       desc: "Página para atuação previdenciária, campanha Meta Ads e materiais de conteúdo.",
       image: portfolioAdvogado,
-      badge: "Live",
     },
     {
-      tag: "Site Institucional · Identidade Visual",
+      tags: ["Site Institucional", "Identidade Visual"],
       title: "Thais Fima Ballet",
       desc: "Página institucional e captação para escola de ballet com direção visual delicada.",
       image: portfolioBallet,
-      badge: "Em design",
     },
   ];
 
   return (
-    <section id="cases" className="bg-[#071c46] py-24 text-white lg:py-32">
+    <section id="cases" className="bg-[#060f1e] py-24 text-white lg:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="mb-14 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="reveal">
-            <div className="section-label">Cases reais</div>
+            <div className="section-label">Portfólio</div>
             <h2 className="mt-5 max-w-3xl text-balance font-display text-4xl font-bold leading-tight lg:text-6xl">
-              Projetos com estratégia e identidade.
+              Cases reais com resultado.
             </h2>
           </div>
           <a
@@ -566,30 +493,36 @@ function Portfolio() {
             rel="noopener noreferrer"
             className="btn-outline shrink-0"
           >
-            Ver todos os projetos
-            <ArrowUpRight className="h-4 w-4" />
+            Iniciar projeto <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <article key={project.title} className={`portfolio-card reveal delay-${index + 1}`}>
-              <div className="portfolio-img-wrap">
-                <img src={project.image} alt={project.title} />
-                <div className="portfolio-badge">{project.badge}</div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {projects.map((p, i) => (
+            <article key={p.title} className={`portfolio-overlay-card reveal delay-${i + 1}`}>
+              <div className="portfolio-overlay-img-wrap">
+                <img src={p.image} alt={p.title} className="portfolio-overlay-img" />
+                <div className="portfolio-overlay-layer">
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="portfolio-acessar-btn"
+                  >
+                    ACESSAR
+                  </a>
+                </div>
               </div>
-              <div className="p-7">
-                <div className="portfolio-tag">{project.tag}</div>
-                <h3 className="mt-4 font-display text-2xl font-bold">{project.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/62">{project.desc}</p>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#d99055]"
-                >
-                  Saiba mais <ArrowUpRight className="h-4 w-4" />
-                </a>
+              <div className="p-6">
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span key={t} className="portfolio-tag-pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="font-display text-xl font-bold">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/52">{p.desc}</p>
               </div>
             </article>
           ))}
@@ -603,26 +536,26 @@ function Testimonials() {
   const reviews = [
     {
       name: "Carla Mendonça",
-      role: "Empreendedora · São Paulo",
+      role: "Empreendedora · SP",
       text: "A IAra transformou completamente minha presença online. A landing page gerou resultados em menos de uma semana. Profissionalismo e atenção aos detalhes em cada etapa.",
       stars: 5,
     },
     {
       name: "Ricardo Fonseca",
       role: "Diretor Comercial · Startup",
-      text: "Contratamos para automação de processos e o impacto foi imediato. Reduzimos 60% do trabalho manual. A equipe passou a focar no que realmente importa.",
+      text: "Contratamos para automação de processos e o impacto foi imediato. Reduzimos 60% do trabalho manual e a equipe focou no que realmente importa.",
       stars: 5,
     },
     {
       name: "Ana Beatriz Lima",
-      role: "Personal Trainer · Rio de Janeiro",
-      text: "Minha campanha de Meta Ads nunca tinha trazido tanto retorno. Com a estratégia da IAra, dobramos as consultas em dois meses. Recomendo demais!",
+      role: "Personal Trainer · RJ",
+      text: "Minha campanha de Meta Ads nunca tinha trazido tanto retorno. Com a estratégia da IAra, dobramos as consultas em dois meses. Recomendo muito!",
       stars: 5,
     },
   ];
 
   return (
-    <section className="bg-[#0b3471] py-24 text-white lg:py-32">
+    <section className="bg-[#071c46] py-24 text-white lg:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="reveal mb-14 text-center">
           <div className="section-label">Depoimentos</div>
@@ -631,21 +564,21 @@ function Testimonials() {
           </h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {reviews.map((review, index) => (
-            <article key={review.name} className={`testimonial-card reveal delay-${index + 1}`}>
+          {reviews.map((r, i) => (
+            <article key={r.name} className={`testimonial-card reveal delay-${i + 1}`}>
               <div className="flex gap-1">
-                {Array.from({ length: review.stars }).map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-[#d99055] text-[#d99055]" />
+                {Array.from({ length: r.stars }).map((_, j) => (
+                  <Star key={j} className="h-5 w-5 fill-[#d99055] text-[#d99055]" />
                 ))}
               </div>
-              <p className="mt-5 text-base leading-relaxed text-white/80">"{review.text}"</p>
+              <p className="mt-5 text-base leading-relaxed text-white/80">"{r.text}"</p>
               <div className="mt-7 flex items-center gap-3 border-t border-white/10 pt-6">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#d99055]/20 text-sm font-black text-[#d99055]">
-                  {review.name.charAt(0)}
+                  {r.name.charAt(0)}
                 </div>
                 <div>
-                  <div className="text-sm font-semibold">{review.name}</div>
-                  <div className="text-xs text-white/48">{review.role}</div>
+                  <div className="text-sm font-semibold">{r.name}</div>
+                  <div className="text-xs text-white/45">{r.role}</div>
                 </div>
               </div>
             </article>
@@ -658,7 +591,6 @@ function Testimonials() {
 
 function About() {
   const skills = ["React", "Supabase", "Python", "SQL", "Tailwind", "Vercel", "n8n", "Meta Ads"];
-
   return (
     <section id="sobre" className="bg-[#fbfaf7] py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl gap-16 px-5 md:px-8 lg:grid-cols-[0.9fr_1fr] lg:items-center">
@@ -667,29 +599,28 @@ function About() {
           <div className="relative overflow-hidden rounded-[1.75rem] border border-[#d99055]/30 p-2.5 shadow-2xl">
             <img
               src={profileIara}
-              alt="Iara Pereira, fundadora da IAra Soluções Digitais"
+              alt="Iara Pereira, fundadora"
               className="aspect-square w-full rounded-[1.25rem] object-cover object-center"
             />
           </div>
         </div>
-
         <div className="reveal-right">
           <div className="section-label-dark">Quem somos</div>
           <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-[#071c46] lg:text-5xl">
             Tecnologia com estratégia e execução próxima.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-[#071c46]/65">
+          <p className="mt-6 text-lg leading-relaxed text-[#071c46]/62">
             Eu sou Iara Pereira, fundadora da IAra Soluções Digitais. Uno programação, marketing e
             comunicação para criar soluções bonitas, úteis e mensuráveis — do primeiro contato ao
             resultado real.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
-            {skills.map((skill) => (
+            {skills.map((s) => (
               <span
-                key={skill}
+                key={s}
                 className="rounded-full border border-[#d99055]/40 bg-[#d99055]/8 px-4 py-2 text-sm font-semibold text-[#d99055]"
               >
-                {skill}
+                {s}
               </span>
             ))}
           </div>
@@ -709,7 +640,6 @@ function About() {
 
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
   const faqs = [
     {
       q: "Como funciona o processo de início de um projeto?",
@@ -717,23 +647,23 @@ function FAQ() {
     },
     {
       q: "Qual o prazo médio para entrega de uma landing page?",
-      a: "Landing pages são entregues em 7 a 14 dias úteis após aprovação do briefing e dos materiais. Projetos maiores como sistemas web têm prazos acordados na proposta.",
+      a: "Landing pages são entregues em 7 a 14 dias úteis após aprovação do briefing e dos materiais. Projetos maiores têm prazos acordados na proposta.",
     },
     {
       q: "Com que tipo de empresa vocês trabalham?",
-      a: "Trabalhamos com pequenas e médias empresas, profissionais liberais, prestadores de serviço e startups que querem estruturar ou escalar a presença digital com estratégia.",
+      a: "Pequenas e médias empresas, profissionais liberais e startups que querem estruturar ou escalar a presença digital com estratégia.",
     },
     {
       q: "É possível contratar mais de um serviço ao mesmo tempo?",
-      a: "Sim! Inclusive faz todo sentido combinar landing page + campanha ou sistema + automação. As peças se potencializam. Montamos pacotes sob medida para cada necessidade.",
+      a: "Sim! Combinações como landing page + campanha ou sistema + automação potencializam os resultados. Montamos pacotes sob medida.",
     },
     {
       q: "Como acompanho os resultados do projeto?",
-      a: "Entregamos relatórios periódicos com os principais indicadores. Para campanhas, os dados ficam disponíveis em tempo real e são revisados em conjunto com você.",
+      a: "Entregamos relatórios periódicos com os principais indicadores. Para campanhas, os dados ficam disponíveis em tempo real.",
     },
     {
       q: "Vocês atendem clientes de qualquer estado do Brasil?",
-      a: "Sim! Atendemos 100% de forma remota, com reuniões por videoconferência e comunicação ágil pelo WhatsApp. Nossos clientes estão em todo o Brasil.",
+      a: "Sim! Atendemos 100% de forma remota, com reuniões por videoconferência e comunicação ágil pelo WhatsApp.",
     },
   ];
 
@@ -746,31 +676,26 @@ function FAQ() {
             Perguntas mais comuns
           </h2>
         </div>
-
         <div className="space-y-3">
-          {faqs.map((faq, index) => (
-            <div key={index} className={`faq-item${openIndex === index ? " faq-open" : ""}`}>
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="faq-question"
-              >
+          {faqs.map((faq, i) => (
+            <div key={i} className={`faq-item${openIndex === i ? " faq-open" : ""}`}>
+              <button onClick={() => setOpenIndex(openIndex === i ? null : i)} className="faq-question">
                 <span>{faq.q}</span>
                 <ChevronDown
                   className={`h-5 w-5 shrink-0 text-[#d99055] transition-transform duration-300 ${
-                    openIndex === index ? "rotate-180" : ""
+                    openIndex === i ? "rotate-180" : ""
                   }`}
                 />
               </button>
-              {openIndex === index && <div className="faq-answer">{faq.a}</div>}
+              {openIndex === i && <div className="faq-answer">{faq.a}</div>}
             </div>
           ))}
         </div>
-
         <div className="reveal mt-16 rounded-3xl bg-[#071c46] p-8 text-center lg:p-12">
           <h3 className="font-display text-2xl font-bold text-white lg:text-3xl">
             Ainda tem dúvidas? Fale direto com a Iara.
           </h3>
-          <p className="mt-3 text-white/58">Resposta rápida e sem enrolação.</p>
+          <p className="mt-3 text-white/55">Resposta rápida e sem enrolação.</p>
           <a
             href={WHATSAPP_URL}
             target="_blank"
@@ -785,10 +710,10 @@ function FAQ() {
   );
 }
 
-function NewsletterFooter() {
+function Footer() {
   return (
     <footer id="contato" className="relative overflow-hidden bg-[#071c46] py-20 text-white">
-      <div className="absolute -bottom-24 right-[-3rem] hidden text-[22rem] font-black leading-none text-[#d99055]/10 lg:block">
+      <div className="absolute -bottom-24 right-[-3rem] hidden text-[22rem] font-black leading-none text-[#d99055]/8 lg:block">
         IA
       </div>
       <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -825,7 +750,6 @@ function NewsletterFooter() {
             </button>
           </form>
         </div>
-
         <div className="mt-20 grid gap-10 border-t border-white/10 pt-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <div>
             <Logo className="h-14" />
@@ -850,38 +774,26 @@ function NewsletterFooter() {
               </a>
             </div>
           </div>
-          <FooterColumn
-            title="Soluções"
-            items={["Landing Pages", "Meta Ads", "Automações", "Sistemas web"]}
-          />
-          <FooterColumn
-            title="Empresa"
-            items={["Quem Somos", "Portfólio", "Método IAra", "FAQ"]}
-          />
-          <FooterColumn
-            title="Contato"
-            items={["WhatsApp", "Instagram", "Newsletter", "Email"]}
-          />
+          {[
+            { title: "Soluções", items: ["Landing Pages", "Meta Ads", "Automações", "Sistemas web"] },
+            { title: "Empresa", items: ["Quem Somos", "Portfólio", "Método IAra", "FAQ"] },
+            { title: "Contato", items: ["WhatsApp", "Instagram", "Newsletter", "Email"] },
+          ].map(({ title, items }) => (
+            <div key={title}>
+              <h3 className="font-bold text-[#d99055]">{title}</h3>
+              <ul className="mt-5 space-y-3 text-white/72">
+                {items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-
-        <div className="mt-12 text-sm text-white/40">
+        <div className="mt-12 text-sm text-white/38">
           © {new Date().getFullYear()} IAra Soluções Digitais. Todos os direitos reservados.
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterColumn({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div>
-      <h3 className="font-bold text-[#d99055]">{title}</h3>
-      <ul className="mt-5 space-y-3 text-white/72">
-        {items.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
   );
 }
 
@@ -891,7 +803,7 @@ function FloatingWhatsApp() {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Abrir WhatsApp"
+      aria-label="WhatsApp"
       className="fixed bottom-6 right-5 z-50 grid h-16 w-16 place-items-center rounded-full border-4 border-white bg-[#2fcf58] text-white shadow-[0_12px_35px_rgba(0,0,0,0.25)] transition-transform hover:scale-105"
     >
       <MessageCircle className="h-8 w-8" />
@@ -901,22 +813,20 @@ function FloatingWhatsApp() {
 
 export function Landing() {
   useReveal();
-
   return (
     <div className="min-h-screen">
       <Header />
       <main>
         <Hero />
-        <CapabilityStrip />
-        <ValueProps />
-        <Solutions />
+        <BigMarquee />
+        <Services />
         <Method />
         <Portfolio />
         <Testimonials />
         <About />
         <FAQ />
       </main>
-      <NewsletterFooter />
+      <Footer />
       <FloatingWhatsApp />
     </div>
   );
