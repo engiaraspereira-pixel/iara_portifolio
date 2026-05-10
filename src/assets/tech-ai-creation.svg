@@ -1,0 +1,32 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="760" rx="44" fill="#0E2839"/>
+  <circle cx="960" cy="170" r="240" fill="#D99055" opacity=".16"/>
+  <circle cx="220" cy="600" r="260" fill="#1F5A8A" opacity=".28"/>
+  <path d="M96 144H554" stroke="#FFFFFF" stroke-opacity=".12"/>
+  <path d="M96 220H462" stroke="#FFFFFF" stroke-opacity=".1"/>
+  <path d="M96 296H518" stroke="#FFFFFF" stroke-opacity=".08"/>
+  <rect x="92" y="92" width="468" height="312" rx="28" fill="white" fill-opacity=".06" stroke="white" stroke-opacity=".12"/>
+  <rect x="132" y="132" width="172" height="24" rx="12" fill="#D99055"/>
+  <rect x="132" y="184" width="348" height="16" rx="8" fill="white" fill-opacity=".34"/>
+  <rect x="132" y="220" width="286" height="16" rx="8" fill="white" fill-opacity=".22"/>
+  <rect x="132" y="256" width="330" height="16" rx="8" fill="white" fill-opacity=".16"/>
+  <rect x="132" y="324" width="118" height="42" rx="21" fill="#D99055"/>
+  <g opacity=".92">
+    <circle cx="846" cy="352" r="146" stroke="#7DE7D1" stroke-opacity=".74" stroke-width="2"/>
+    <circle cx="846" cy="352" r="84" stroke="#7DE7D1" stroke-opacity=".48" stroke-width="2"/>
+    <path d="M703 330C790 256 896 250 993 333" stroke="#7DE7D1" stroke-opacity=".42"/>
+    <path d="M716 414C800 478 912 470 982 392" stroke="#7DE7D1" stroke-opacity=".42"/>
+    <path d="M846 206V498M700 352H994M742 250L950 454M944 248L744 456" stroke="#7DE7D1" stroke-opacity=".34"/>
+    <circle cx="846" cy="206" r="8" fill="#7DE7D1"/>
+    <circle cx="846" cy="498" r="8" fill="#7DE7D1"/>
+    <circle cx="700" cy="352" r="8" fill="#7DE7D1"/>
+    <circle cx="994" cy="352" r="8" fill="#7DE7D1"/>
+    <circle cx="742" cy="250" r="7" fill="#D99055"/>
+    <circle cx="950" cy="454" r="7" fill="#D99055"/>
+    <circle cx="944" cy="248" r="7" fill="#D99055"/>
+    <circle cx="744" cy="456" r="7" fill="#D99055"/>
+  </g>
+  <rect x="662" y="560" width="384" height="78" rx="24" fill="white" fill-opacity=".08" stroke="white" stroke-opacity=".12"/>
+  <text x="700" y="608" fill="#FFFFFF" font-family="Aptos, Inter, Arial" font-size="27" font-weight="700">IA aplicada à criação digital</text>
+  <text x="96" y="660" fill="#D99055" font-family="Aptos, Inter, Arial" font-size="24" font-weight="700" letter-spacing="4">TECNOLOGIA • INTELIGÊNCIA • RESULTADOS</text>
+</svg>

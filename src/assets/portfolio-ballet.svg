@@ -1,0 +1,13 @@
+<svg width="900" height="560" viewBox="0 0 900 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="560" rx="34" fill="#F6EEF2"/>
+  <circle cx="734" cy="142" r="184" fill="#E7B9C9" opacity=".55"/>
+  <circle cx="188" cy="430" r="220" fill="#12334C" opacity=".08"/>
+  <rect x="70" y="70" width="760" height="420" rx="34" fill="white" stroke="#E1C7D0"/>
+  <path d="M148 340C248 198 338 180 450 296C540 388 638 374 752 220" stroke="#C98BA2" stroke-width="15" stroke-linecap="round"/>
+  <path d="M184 390C318 300 504 450 720 314" stroke="#12334C" stroke-opacity=".24" stroke-width="5" stroke-linecap="round"/>
+  <text x="118" y="154" fill="#12334C" font-family="Aptos, Inter, Arial" font-size="24" font-weight="700" letter-spacing="4">EM PRODUÇÃO</text>
+  <text x="118" y="236" fill="#12334C" font-family="Georgia, serif" font-size="62">Thais Fima</text>
+  <text x="118" y="284" fill="#6E7480" font-family="Aptos, Inter, Arial" font-size="26">escola de ballet</text>
+  <rect x="118" y="370" width="230" height="58" rx="29" fill="#12334C"/>
+  <text x="158" y="406" fill="white" font-family="Aptos, Inter, Arial" font-size="22" font-weight="800">landing page</text>
+</svg>

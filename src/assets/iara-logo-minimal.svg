@@ -1,0 +1,20 @@
+<svg width="760" height="260" viewBox="0 0 760 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="260" rx="34" fill="transparent"/>
+  <g transform="translate(70 42)">
+    <path d="M18 19H52V175H18V19Z" fill="#12334C"/>
+    <path d="M89 175L151 20L214 175H181L166 136H134L145 108H155L151 96L119 175H89Z" fill="#D99055"/>
+    <path d="M91 134C119 128 140 118 155 101" stroke="#D99055" stroke-width="10" stroke-linecap="round"/>
+    <rect x="223" y="53" width="12" height="12" rx="2" fill="#D99055"/>
+    <rect x="249" y="72" width="10" height="10" rx="2" fill="#12334C"/>
+    <rect x="229" y="95" width="9" height="9" rx="2" fill="#12334C"/>
+    <rect x="261" y="105" width="13" height="13" rx="2" fill="#D99055"/>
+    <rect x="242" y="131" width="8" height="8" rx="2" fill="#D99055"/>
+  </g>
+  <g transform="translate(360 63)">
+    <text x="0" y="71" fill="#12334C" font-family="Georgia, 'Times New Roman', serif" font-size="76" letter-spacing="6">IA<tspan fill="#D99055">ra</tspan></text>
+    <text x="4" y="118" fill="#12334C" font-family="Inter, Arial, sans-serif" font-size="24" letter-spacing="5">Soluções Digitais</text>
+    <line x1="4" y1="144" x2="288" y2="144" stroke="#D99055" stroke-width="2"/>
+    <circle cx="146" cy="144" r="5" fill="#D99055"/>
+    <text x="4" y="178" fill="#12334C" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="3">TECNOLOGIA • INTELIGÊNCIA • RESULTADOS</text>
+  </g>
+</svg>
