@@ -791,12 +791,18 @@
 .portfolio-img img.brand-logo--qualiflow-login {
   object-fit: contain;
   object-position: center top;
-  padding: clamp(8px, 1.2vw, 14px);
+  padding: 0;
   background: #fff;
+  transform: scale(1.86);
+  transform-origin: top center;
 }
 
 .portfolio-card:hover .portfolio-img img {
   transform: scale(1.06);
+}
+
+.portfolio-card:hover .portfolio-img img.brand-logo--qualiflow-login {
+  transform: scale(1.92);
 }
 
 .portfolio-overlay {

@@ -618,15 +618,6 @@ function WorkProcess() {
           </div>
         ))}
       </div>
-      <div className="process-note reveal">
-        <span>
-          Sem depoimentos inventados: aqui entram somente feedbacks reais com autorização.
-        </span>
-        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-          Conversar sobre meu projeto
-          <ArrowRight size={18} />
-        </a>
-      </div>
     </section>
   );
 }
