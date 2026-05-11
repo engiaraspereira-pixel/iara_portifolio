@@ -10,17 +10,17 @@ import {
 } from "lucide-react";
 import logoIara from "@/assets/iara-logo-tech-transparente.png";
 import headerLogoIara from "@/assets/iara-header-logo-wide.webp";
-import iaraOfficeHq from "@/assets/iara-office-hq.png";
+import iaraOfficeHq from "@/assets/iara-office-hq-optimized.jpg";
 import logoAdriano from "@/assets/logo-adriano-farias-cropped.png";
 import qualiflowLoginPage from "@/assets/qualiflow-login-page.png";
 import thaisFimaArte from "@/assets/thais-fima-arte.jpeg";
 import globeRotation from "@/assets/golden-tech-globe.mp4";
 import footerNeuralLogoBg from "@/assets/footer-neural-logo-bg.mp4";
-import phoneAiAvatar from "@/assets/phone-ai-avatar.png";
+import phoneAiAvatar from "@/assets/phone-ai-avatar-optimized.jpg";
 import phoneGoldenBrain from "@/assets/phone-golden-brain.mp4";
-import phoneIaraWorkflow from "@/assets/phone-iara-workflow.png";
-import techWorkspace from "@/assets/tech-workspace-iara.png";
-import techDashboard from "@/assets/tech-dashboard-iara.png";
+import phoneIaraWorkflow from "@/assets/phone-iara-workflow-optimized.jpg";
+import techWorkspace from "@/assets/tech-workspace-iara-optimized.jpg";
+import techDashboard from "@/assets/tech-dashboard-iara-optimized.jpg";
 
 const WHATSAPP_URL =
   "https://wa.me/5511978856858?text=Ol%C3%A1%2C%20Iara.%20Quero%20conversar%20sobre%20um%20projeto%20digital.";
@@ -99,6 +99,7 @@ function Globe() {
         loop
         muted
         playsInline
+        preload="metadata"
         aria-label="Mundo digital girando"
       >
         <source src={globeRotation} type="video/mp4" />
@@ -106,6 +107,63 @@ function Globe() {
       <div className="globe-glow" />
       <div className="globe-orbit" />
     </div>
+  );
+}
+
+function LazyVideo({
+  src,
+  className = "",
+  ariaLabel,
+}: {
+  src: string;
+  className?: string;
+  ariaLabel?: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "420px" },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
+
+    const video = ref.current;
+    if (!video) return;
+
+    video.load();
+    void video.play().catch(() => undefined);
+  }, [shouldLoad]);
+
+  return (
+    <video
+      ref={ref}
+      className={className}
+      autoPlay={shouldLoad}
+      loop
+      muted
+      playsInline
+      preload="none"
+      aria-label={ariaLabel}
+      aria-hidden={ariaLabel ? undefined : true}
+    >
+      {shouldLoad ? <source src={src} type="video/mp4" /> : null}
+    </video>
   );
 }
 
@@ -423,6 +481,8 @@ function Portfolio() {
               <img
                 src={p.img}
                 alt={p.title}
+                loading="lazy"
+                decoding="async"
                 className={`${p.isPhoto ? "is-photo" : "is-brand"} ${p.brandClass ?? ""}`}
               />
             </div>
@@ -449,7 +509,12 @@ function About() {
   return (
     <section id="sobre" className="section about-section">
       <div className="about-photo reveal-left">
-        <img src={iaraOfficeHq} alt="Iara Pereira, fundadora da IAra Soluções Digitais" />
+        <img
+          src={iaraOfficeHq}
+          alt="Iara Pereira, fundadora da IAra Soluções Digitais"
+          loading="lazy"
+          decoding="async"
+        />
         <div className="about-badge">Fundadora · Iara Pereira</div>
       </div>
       <div className="about-copy reveal-right">
@@ -497,6 +562,8 @@ function BrandTech() {
           className="brand-tech-photo"
           src={techWorkspace}
           alt="Ambiente realista de tecnologia alinhado à marca IAra"
+          loading="lazy"
+          decoding="async"
         />
         <div className="brand-tech-logo">
           <Logo />
@@ -523,11 +590,9 @@ function PhoneMockup({
         <div className="phone-notch" />
         <div className="phone-screen">
           {isVideo ? (
-            <video autoPlay loop muted playsInline aria-label={alt}>
-              <source src={img} type="video/mp4" />
-            </video>
+            <LazyVideo src={img} ariaLabel={alt} />
           ) : (
-            <img src={img} alt={alt} />
+            <img src={img} alt={alt} loading="lazy" decoding="async" />
           )}
         </div>
       </div>
@@ -682,9 +747,7 @@ function Faq() {
 function Footer() {
   return (
     <footer id="contato" className="footer">
-      <video className="footer-bg-video" autoPlay loop muted playsInline aria-hidden="true">
-        <source src={footerNeuralLogoBg} type="video/mp4" />
-      </video>
+      <LazyVideo src={footerNeuralLogoBg} className="footer-bg-video" />
       <div className="footer-bg-overlay" />
       <div className="footer-inner">
         <div className="footer-brand">
