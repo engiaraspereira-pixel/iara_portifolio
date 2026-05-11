@@ -1,0 +1,15 @@
+<svg width="620" height="260" viewBox="0 0 620 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="620" height="260" rx="34" fill="#ffffff"/>
+  <g transform="translate(152 42)">
+    <path d="M92 104H46V58h46v22h24V34H22v94h94V94H92v10Z" fill="#0B3C5D"/>
+    <path d="M98 74 152 20l3 25 25 3-54 54-5-21-23-7Z" fill="#D77B2D"/>
+    <path d="M118 62h39v38h-22V82h-17V62Z" fill="#0B3C5D"/>
+    <path d="M85 132c28-4 58-20 80-44" stroke="#0B3C5D" stroke-width="11" stroke-linecap="round"/>
+  </g>
+  <text x="310" y="190" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="54" font-weight="800">
+    <tspan fill="#0B3C5D">Quali</tspan><tspan fill="#D77B2D">Flow</tspan>
+  </text>
+  <text x="310" y="220" text-anchor="middle" fill="#0B3C5D" font-family="Poppins, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="1.2">
+    GESTAO INTEGRADA DE OBRAS
+  </text>
+</svg>

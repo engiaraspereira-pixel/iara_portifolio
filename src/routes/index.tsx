@@ -1,11 +1,26 @@
 import { useEffect, useRef, useState } from "react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Instagram,
+  Menu,
+  MessageCircle,
+  X,
+} from "lucide-react";
 import logoIara from "@/assets/iara-logo-tech-transparente.png";
-import visualIara from "@/assets/iara-visual.png";
-import workLaptop from "@/assets/work-1.jpg";
-import portfolioQualiflow from "@/assets/portfolio-qualiflow.svg";
-import portfolioAdvogado from "@/assets/portfolio-advogado.svg";
-import portfolioBallet from "@/assets/portfolio-ballet.svg";
-import techAi from "@/assets/tech-ai-creation.svg";
+import headerLogoIara from "@/assets/iara-header-logo-wide.webp";
+import iaraOfficeHq from "@/assets/iara-office-hq.png";
+import logoAdriano from "@/assets/logo-adriano-farias-cropped.png";
+import qualiflowLoginPage from "@/assets/qualiflow-login-page.png";
+import thaisFimaArte from "@/assets/thais-fima-arte.jpeg";
+import globeRotation from "@/assets/golden-tech-globe.mp4";
+import footerNeuralLogoBg from "@/assets/footer-neural-logo-bg.mp4";
+import phoneAiAvatar from "@/assets/phone-ai-avatar.png";
+import phoneGoldenBrain from "@/assets/phone-golden-brain.mp4";
+import phoneIaraWorkflow from "@/assets/phone-iara-workflow.png";
+import techWorkspace from "@/assets/tech-workspace-iara.png";
+import techDashboard from "@/assets/tech-dashboard-iara.png";
 
 const WHATSAPP_URL =
   "https://wa.me/5511978856858?text=Ol%C3%A1%2C%20Iara.%20Quero%20conversar%20sobre%20um%20projeto%20digital.";
@@ -36,185 +51,58 @@ function useReveal() {
 
 function RotatingWord({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const currentWord = words[index] ?? "";
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setVisible(false);
-      const timeout = window.setTimeout(() => {
-        setIndex((current) => (current + 1) % words.length);
-        setVisible(true);
-      }, 340);
-      return () => window.clearTimeout(timeout);
-    }, 2400);
-    return () => clearInterval(id);
-  }, [words.length]);
+    const isWordComplete = !isDeleting && text === currentWord;
+    const isWordDeleted = isDeleting && text === "";
+    const delay = isWordComplete ? 1300 : isWordDeleted ? 280 : isDeleting ? 45 : 85;
 
-  return <span className={`rotating-word ${visible ? "is-visible" : ""}`}>{words[index]}</span>;
+    const timeout = window.setTimeout(() => {
+      if (isWordComplete) {
+        setIsDeleting(true);
+        return;
+      }
+
+      if (isWordDeleted) {
+        setIsDeleting(false);
+        setIndex((current) => (current + 1) % words.length);
+        return;
+      }
+
+      setText((current) =>
+        isDeleting
+          ? currentWord.slice(0, Math.max(0, current.length - 1))
+          : currentWord.slice(0, current.length + 1),
+      );
+    }, delay);
+
+    return () => window.clearTimeout(timeout);
+  }, [currentWord, index, isDeleting, text, words.length]);
+
+  return (
+    <span className="rotating-word">
+      {text}
+      <span className="typing-caret" />
+    </span>
+  );
 }
 
 function Globe() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    let rAF: number;
-    let targetRX = 0, targetRY = 0;
-    let currentRX = 0, currentRY = 0;
-    let hovering = false;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      targetRX = -((e.clientY - rect.top - cy) / cy) * 24;
-      targetRY = ((e.clientX - rect.left - cx) / cx) * 24;
-    };
-    const onEnter = () => { hovering = true; };
-    const onLeave = () => { hovering = false; targetRX = 0; targetRY = 0; };
-
-    const tick = () => {
-      const ease = hovering ? 0.10 : 0.04;
-      currentRX += (targetRX - currentRX) * ease;
-      currentRY += (targetRY - currentRY) * ease;
-      el.style.transform = `perspective(900px) rotateX(${currentRX}deg) rotateY(${currentRY}deg)`;
-      rAF = requestAnimationFrame(tick);
-    };
-
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseenter", onEnter);
-    el.addEventListener("mouseleave", onLeave);
-    rAF = requestAnimationFrame(tick);
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseenter", onEnter);
-      el.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(rAF);
-    };
-  }, []);
-
-  const latLines = [
-    { cy: 60, rx: 122, ry: 22 },
-    { cy: 108, rx: 163, ry: 30 },
-    { cy: 155, rx: 183, ry: 33 },
-    { cy: 200, rx: 188, ry: 36 },
-    { cy: 245, rx: 183, ry: 33 },
-    { cy: 292, rx: 163, ry: 30 },
-    { cy: 340, rx: 122, ry: 22 },
-  ];
-
-  const lonCxValues = Array.from({ length: 26 }, (_, i) => -200 + i * 40);
-
   return (
-    <div className="globe-container" ref={containerRef}>
-      <svg viewBox="0 0 400 400" className="globe-svg" aria-hidden="true">
-        <defs>
-          <clipPath id="globe-clip">
-            <circle cx="200" cy="200" r="188" />
-          </clipPath>
-          <radialGradient id="globe-bg" cx="36%" cy="30%" r="72%">
-            <stop offset="0%" stopColor="#1e5aa8" />
-            <stop offset="45%" stopColor="#0b3471" />
-            <stop offset="100%" stopColor="#071c46" />
-          </radialGradient>
-          <radialGradient id="globe-shine" cx="28%" cy="24%" r="46%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-          </radialGradient>
-          <filter id="globe-glow-filter">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        <circle cx="200" cy="200" r="188" fill="url(#globe-bg)" />
-
-        <g clipPath="url(#globe-clip)">
-          {latLines.map((l, i) => (
-            <ellipse
-              key={`lat-${i}`}
-              cx="200"
-              cy={l.cy}
-              rx={l.rx}
-              ry={l.ry}
-              fill="none"
-              stroke="rgba(217,144,85,0.30)"
-              strokeWidth="0.9"
-            />
-          ))}
-
-          <g className="globe-lons">
-            {lonCxValues.map((cx, i) => (
-              <ellipse
-                key={`lon-${i}`}
-                cx={cx}
-                cy="200"
-                rx="26"
-                ry="188"
-                fill="none"
-                stroke="rgba(217,144,85,0.26)"
-                strokeWidth="0.9"
-              />
-            ))}
-          </g>
-        </g>
-
-        <circle cx="200" cy="200" r="188" fill="url(#globe-shine)" />
-        <circle
-          cx="200"
-          cy="200"
-          r="188"
-          fill="none"
-          stroke="rgba(217,144,85,0.6)"
-          strokeWidth="1.5"
-        />
-
-        <g filter="url(#globe-glow-filter)">
-          <circle cx="200" cy="200" r="6" fill="#d99055" opacity="0.95" />
-          <circle cx="272" cy="154" r="5" fill="#d99055" opacity="0.82" />
-          <circle cx="138" cy="246" r="4" fill="#d99055" opacity="0.72" />
-          <circle cx="244" cy="284" r="4" fill="#d99055" opacity="0.62" />
-          <circle cx="158" cy="136" r="3.5" fill="#d99055" opacity="0.52" />
-          <circle cx="310" cy="218" r="3" fill="#d99055" opacity="0.42" />
-          <line
-            x1="200"
-            y1="200"
-            x2="272"
-            y2="154"
-            stroke="rgba(217,144,85,0.45)"
-            strokeWidth="1.2"
-          />
-          <line
-            x1="200"
-            y1="200"
-            x2="138"
-            y2="246"
-            stroke="rgba(217,144,85,0.38)"
-            strokeWidth="1"
-          />
-          <line
-            x1="272"
-            y1="154"
-            x2="244"
-            y2="284"
-            stroke="rgba(217,144,85,0.28)"
-            strokeWidth="1"
-          />
-          <line
-            x1="158"
-            y1="136"
-            x2="310"
-            y2="218"
-            stroke="rgba(217,144,85,0.22)"
-            strokeWidth="0.8"
-          />
-        </g>
-      </svg>
+    <div className="globe-container">
+      <video
+        className="globe-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-label="Mundo digital girando"
+      >
+        <source src={globeRotation} type="video/mp4" />
+      </video>
       <div className="globe-glow" />
       <div className="globe-orbit" />
     </div>
@@ -234,6 +122,10 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 
 function Logo({ className = "" }: { className?: string }) {
   return <img src={logoIara} alt="IAra Soluções Digitais" className={`site-logo ${className}`} />;
+}
+
+function HeaderLogo() {
+  return <img src={headerLogoIara} alt="IAra Soluções Digitais" className="header-logo" />;
 }
 
 function Header() {
@@ -256,7 +148,7 @@ function Header() {
   return (
     <header className={`main-header ${scrolled ? "is-scrolled" : ""}`}>
       <a href="#inicio" className="brand-link" aria-label="IAra Soluções Digitais">
-        <Logo />
+        <HeaderLogo />
       </a>
       <nav className="desktop-nav">
         {links.map(([href, label]) => (
@@ -266,14 +158,29 @@ function Header() {
         ))}
       </nav>
       <div className="header-actions">
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="social-pill">
-          IG
+        <a
+          href={INSTAGRAM_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon"
+          aria-label="Instagram"
+        >
+          <Instagram size={19} />
+        </a>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-icon"
+          aria-label="WhatsApp"
+        >
+          <MessageCircle size={19} />
         </a>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="header-cta">
           Falar com a IAra
         </a>
         <button type="button" onClick={() => setOpen((v) => !v)} className="menu-button">
-          {open ? "✕" : "≡"}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
       {open && (
@@ -304,7 +211,6 @@ function Hero() {
       <div className="hero-content reveal-left">
         <div className="eyebrow">
           <RotatingWord words={["Sites", "Automações", "IA aplicada", "Campanhas"]} />
-          <span className="typing-caret" />
         </div>
         <h1>
           Tecnologia, inteligência e presença digital com <em>resultado.</em>
@@ -326,21 +232,11 @@ function Hero() {
             Ver portfólio
           </a>
         </div>
-        <div className="hero-stats">
-          <div className="stat">
-            <strong>+30</strong>
-            <span>projetos entregues</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat">
-            <strong>100%</strong>
-            <span>cliente direto</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat">
-            <strong>3×</strong>
-            <span>mais conversão</span>
-          </div>
+        <div className="hero-proof">
+          <span>Design</span>
+          <span>Automação</span>
+          <span>IA aplicada</span>
+          <span>Performance</span>
         </div>
       </div>
       <div className="hero-globe reveal-right">
@@ -371,9 +267,8 @@ function Marquee() {
     "Dados",
     "Execução",
   ];
-  const sep = " ⌁ ";
-  const makeText = (items: string[]) =>
-    Array.from({ length: 8 }, () => items.join(sep)).join(sep);
+  const sep = " ~ ";
+  const makeText = (items: string[]) => Array.from({ length: 8 }, () => items.join(sep)).join(sep);
 
   return (
     <div className="marquee-section">
@@ -394,47 +289,64 @@ function Marquee() {
 }
 
 function Services() {
+  const carouselRef = useRef<HTMLDivElement>(null);
   const services = [
     {
-      n: "01",
       title: "Landing pages e sites",
-      desc: "Páginas bonitas, rápidas e construídas para converter visitantes em contatos e vendas.",
+      desc: "Páginas rápidas, responsivas e pensadas para transformar visita em conversa.",
     },
     {
-      n: "02",
       title: "Automações e IA",
-      desc: "Fluxos inteligentes para reduzir trabalho manual, organizar a operação e escalar resultados.",
-      featured: true,
+      desc: "Fluxos para reduzir tarefas repetitivas, organizar dados e acelerar atendimento.",
     },
     {
-      n: "03",
       title: "Campanhas digitais",
-      desc: "Meta Ads, funis e conteúdo com leitura de dados e foco em retorno sobre investimento.",
+      desc: "Estrutura de tráfego, funil e leitura de indicadores para melhorar decisões.",
+    },
+    {
+      title: "Sistemas web",
+      desc: "Ferramentas internas, painéis e experiências digitais sob medida para sua operação.",
+    },
+    {
+      title: "Presença orgânica",
+      desc: "Conteúdo, SEO básico e organização de marca para sua empresa ser encontrada.",
+    },
+    {
+      title: "Interfaces e protótipos",
+      desc: "Telas, jornadas e protótipos navegáveis antes de partir para o desenvolvimento.",
     },
   ];
+  const scroll = (direction: "left" | "right") => {
+    carouselRef.current?.scrollBy({
+      left: direction === "left" ? -360 : 360,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <section id="solucoes" className="section services-section">
-      <div className="section-heading reveal">
-        <span className="eyebrow-label">Soluções digitais</span>
-        <h2>O essencial para estruturar presença, captação e operação.</h2>
+      <div className="section-heading section-heading--row reveal">
+        <div>
+          <span className="eyebrow-label">Soluções digitais</span>
+          <h2>Serviços enxutos, completos e fáceis de entender.</h2>
+        </div>
+        <div className="carousel-controls">
+          <button type="button" onClick={() => scroll("left")} aria-label="Voltar soluções">
+            <ChevronLeft size={22} />
+          </button>
+          <button type="button" onClick={() => scroll("right")} aria-label="Avançar soluções">
+            <ChevronRight size={22} />
+          </button>
+        </div>
       </div>
-      <div className="service-grid">
+      <div className="service-carousel" ref={carouselRef}>
         {services.map((s, i) => (
-          <article
-            key={s.n}
-            className={`service-card reveal delay-${i + 1} ${s.featured ? "service-card--featured" : ""}`}
-          >
-            <span className="card-number">{s.n}</span>
+          <article key={s.title} className={`service-card reveal delay-${(i % 3) + 1}`}>
+            <span className="service-index">{String(i + 1).padStart(2, "0")}</span>
             <h3>{s.title}</h3>
             <p>{s.desc}</p>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-cta"
-            >
-              Saiba mais →
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="card-cta">
+              Ver detalhes <ArrowRight size={16} />
             </a>
           </article>
         ))}
@@ -444,37 +356,61 @@ function Services() {
 }
 
 function Portfolio() {
+  const carouselRef = useRef<HTMLDivElement>(null);
   const projects = [
     {
-      img: portfolioQualiflow,
-      title: "Qualiflow",
-      tags: ["Sistema web", "IA"],
+      img: qualiflowLoginPage,
+      title: "QualiFlow",
+      desc: "Sistema de gestão integrada de obras para rotina operacional.",
+      tags: ["Sistema web", "Dashboard"],
+      brandClass: "brand-logo--qualiflow-login",
     },
     {
-      img: portfolioAdvogado,
-      title: "Escritório Jurídico",
-      tags: ["Landing page", "Web design"],
+      img: logoAdriano,
+      title: "Adriano Farias",
+      desc: "Identidade digital e landing page para atuação jurídica.",
+      tags: ["Landing page", "Marca"],
+      brandClass: "brand-logo--adriano",
     },
     {
-      img: portfolioBallet,
-      title: "Academia de Ballet",
-      tags: ["Site", "Identidade visual"],
+      img: thaisFimaArte,
+      title: "Thais Fima",
+      desc: "Presença digital para estúdio de dança.",
+      tags: ["Site", "Portfolio"],
+      brandClass: "brand-logo--thais-fima",
     },
     {
-      img: workLaptop,
-      title: "Campanha Digital",
-      tags: ["Meta Ads", "Funil"],
+      img: techDashboard,
+      title: "IAra Tech",
+      desc: "Visual de tecnologia e automação alinhado à marca IAra.",
+      tags: ["IA", "Automação"],
       isPhoto: true,
     },
   ];
+  const scroll = (direction: "left" | "right") => {
+    carouselRef.current?.scrollBy({
+      left: direction === "left" ? -340 : 340,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <section id="portfolio" className="section portfolio-section">
-      <div className="section-heading reveal">
-        <span className="eyebrow-label">Portfólio</span>
-        <h2>Projetos digitais com acabamento visual e clareza comercial.</h2>
+      <div className="section-heading section-heading--row reveal">
+        <div>
+          <span className="eyebrow-label">Portfólio</span>
+          <h2>Projetos digitais com acabamento visual e clareza comercial.</h2>
+        </div>
+        <div className="carousel-controls">
+          <button type="button" onClick={() => scroll("left")} aria-label="Voltar portfólio">
+            <ChevronLeft size={22} />
+          </button>
+          <button type="button" onClick={() => scroll("right")} aria-label="Avançar portfólio">
+            <ChevronRight size={22} />
+          </button>
+        </div>
       </div>
-      <div className="portfolio-grid">
+      <div className="portfolio-carousel" ref={carouselRef}>
         {projects.map((p, i) => (
           <a
             key={p.title}
@@ -484,13 +420,18 @@ function Portfolio() {
             className={`portfolio-card reveal delay-${(i % 3) + 1}`}
           >
             <div className="portfolio-img">
-              <img src={p.img} alt={p.title} className={p.isPhoto ? "is-photo" : ""} />
+              <img
+                src={p.img}
+                alt={p.title}
+                className={`${p.isPhoto ? "is-photo" : "is-brand"} ${p.brandClass ?? ""}`}
+              />
             </div>
             <div className="portfolio-overlay">
               <span className="portfolio-access">ACESSAR</span>
             </div>
             <div className="portfolio-info">
               <strong>{p.title}</strong>
+              <p>{p.desc}</p>
               <div className="portfolio-tags">
                 {p.tags.map((t) => (
                   <span key={t}>{t}</span>
@@ -508,7 +449,7 @@ function About() {
   return (
     <section id="sobre" className="section about-section">
       <div className="about-photo reveal-left">
-        <img src={visualIara} alt="Iara Pereira, fundadora da IAra Soluções Digitais" />
+        <img src={iaraOfficeHq} alt="Iara Pereira, fundadora da IAra Soluções Digitais" />
         <div className="about-badge">Fundadora · Iara Pereira</div>
       </div>
       <div className="about-copy reveal-right">
@@ -540,13 +481,54 @@ function About() {
   );
 }
 
-function PhoneMockup({ img, alt, className = "" }: { img: string; alt: string; className?: string }) {
+function BrandTech() {
+  return (
+    <section className="section brand-tech-section">
+      <div className="brand-tech-copy reveal-left">
+        <span className="eyebrow-label">Tecnologia com identidade</span>
+        <h2>Visual moderno, presença profissional e sistemas com cara de negócio sério.</h2>
+        <p>
+          A comunicação da IAra mistura estratégia, design e tecnologia: telas, automações e
+          materiais digitais precisam parecer tão confiáveis quanto funcionam.
+        </p>
+      </div>
+      <div className="brand-tech-media reveal-right">
+        <img
+          className="brand-tech-photo"
+          src={techWorkspace}
+          alt="Ambiente realista de tecnologia alinhado à marca IAra"
+        />
+        <div className="brand-tech-logo">
+          <Logo />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PhoneMockup({
+  img,
+  alt,
+  className = "",
+  isVideo = false,
+}: {
+  img: string;
+  alt: string;
+  className?: string;
+  isVideo?: boolean;
+}) {
   return (
     <div className={`phone-mockup ${className}`}>
       <div className="phone-frame">
         <div className="phone-notch" />
         <div className="phone-screen">
-          <img src={img} alt={alt} />
+          {isVideo ? (
+            <video autoPlay loop muted playsInline aria-label={alt}>
+              <source src={img} type="video/mp4" />
+            </video>
+          ) : (
+            <img src={img} alt={alt} />
+          )}
         </div>
       </div>
       <div className="phone-shadow" />
@@ -574,60 +556,76 @@ function WhyChoose() {
             </li>
           ))}
         </ul>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="primary-button"
-        >
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="primary-button">
           Começar agora
         </a>
       </div>
       <div className="why-phones reveal-right">
-        <PhoneMockup img={portfolioQualiflow} alt="Sistema Qualiflow" className="phone-1" />
-        <PhoneMockup img={techAi} alt="IA aplicada" className="phone-2" />
-        <PhoneMockup img={portfolioBallet} alt="Projeto Ballet" className="phone-3" />
+        <PhoneMockup
+          img={phoneAiAvatar}
+          alt="Avatar de inteligência artificial"
+          className="phone-1"
+        />
+        <PhoneMockup
+          img={phoneGoldenBrain}
+          alt="Tecnologia com inteligência artificial"
+          className="phone-2"
+          isVideo
+        />
+        <PhoneMockup
+          img={phoneIaraWorkflow}
+          alt="Iara trabalhando com automações"
+          className="phone-3"
+        />
       </div>
     </section>
   );
 }
 
-const TESTIMONIALS = [
-  {
-    name: "Ana Carla M.",
-    role: "Empresária",
-    text: "A IAra entregou meu site em tempo recorde e com qualidade acima do esperado. Estou recebendo muito mais contatos.",
-  },
-  {
-    name: "Ricardo S.",
-    role: "Advogado",
-    text: "Profissionalismo e atenção ao detalhe. A landing page para meu escritório ficou incrível e está convertendo muito bem.",
-  },
-  {
-    name: "Fernanda P.",
-    role: "Professora de Ballet",
-    text: "Adorei o resultado! O site ficou lindo e os alunos encontram tudo fácilmente. Recomendo muito a IAra.",
-  },
-];
+function WorkProcess() {
+  const steps = [
+    {
+      number: "01",
+      title: "Diagnóstico direto",
+      text: "Entendo objetivo, público e prioridade antes de desenhar qualquer tela.",
+    },
+    {
+      number: "02",
+      title: "Direção visual",
+      text: "A identidade do projeto aparece em layout, conteúdo e experiência mobile.",
+    },
+    {
+      number: "03",
+      title: "Entrega acompanhada",
+      text: "Publicação, ajustes finais e orientação para você usar o material com segurança.",
+    },
+  ];
 
-function Testimonials() {
   return (
-    <section className="section testimonials-section">
+    <section className="section process-section">
       <div className="section-heading reveal">
-        <span className="eyebrow-label">Depoimentos</span>
-        <h2>O que dizem os clientes.</h2>
+        <span className="eyebrow-label">Como eu trabalho</span>
+        <h2>Processo simples, visual profissional e entrega acompanhada.</h2>
       </div>
-      <div className="testimonials-grid">
-        {TESTIMONIALS.map((t, i) => (
-          <div key={t.name} className={`testimonial-card reveal-up delay-${i + 1}`}>
-            <div className="testimonial-stars">★★★★★</div>
-            <p className="testimonial-text">"{t.text}"</p>
-            <div className="testimonial-author">
-              <strong>{t.name}</strong>
-              <span>{t.role}</span>
+      <div className="process-grid">
+        {steps.map((step) => (
+          <div className="process-card reveal-up" key={step.number}>
+            <span className="process-number">{step.number}</span>
+            <div>
+              <strong>{step.title}</strong>
+              <p>{step.text}</p>
             </div>
           </div>
         ))}
+      </div>
+      <div className="process-note reveal">
+        <span>
+          Sem depoimentos inventados: aqui entram somente feedbacks reais com autorização.
+        </span>
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+          Conversar sobre meu projeto
+          <ArrowRight size={18} />
+        </a>
       </div>
     </section>
   );
@@ -661,30 +659,30 @@ function Faq() {
 
   return (
     <section className="section faq-section">
-      <div className="section-heading reveal">
-        <span className="eyebrow-label">FAQ</span>
-        <h2>Perguntas frequentes.</h2>
-      </div>
-      <div className="faq-list">
-        {FAQ_ITEMS.map((item, i) => (
-          <div
-            key={i}
-            className={`faq-item reveal delay-${(i % 3) + 1} ${open === i ? "is-open" : ""}`}
-          >
-            <button
-              type="button"
-              className="faq-question"
-              onClick={() => setOpen(open === i ? null : i)}
-              aria-expanded={open === i}
-            >
-              <span>{item.q}</span>
-              <span className="faq-icon">{open === i ? "−" : "+"}</span>
-            </button>
-            <div className="faq-answer">
-              <p>{item.a}</p>
+      <div className="faq-card reveal">
+        <div className="faq-card-aside">
+          <span className="eyebrow-label">FAQ</span>
+          <h2>Perguntas frequentes.</h2>
+          <p>Tire as dúvidas principais antes de chamar no WhatsApp.</p>
+        </div>
+        <div className="faq-list">
+          {FAQ_ITEMS.map((item, i) => (
+            <div key={i} className={`faq-item delay-${(i % 3) + 1} ${open === i ? "is-open" : ""}`}>
+              <button
+                type="button"
+                className="faq-question"
+                onClick={() => setOpen(open === i ? null : i)}
+                aria-expanded={open === i}
+              >
+                <span>{item.q}</span>
+                <span className="faq-icon">{open === i ? "−" : "+"}</span>
+              </button>
+              <div className="faq-answer">
+                <p>{item.a}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -693,41 +691,64 @@ function Faq() {
 function Footer() {
   return (
     <footer id="contato" className="footer">
+      <video className="footer-bg-video" autoPlay loop muted playsInline aria-hidden="true">
+        <source src={footerNeuralLogoBg} type="video/mp4" />
+      </video>
+      <div className="footer-bg-overlay" />
       <div className="footer-inner">
         <div className="footer-brand">
           <Logo />
-          <p>Tecnologia, inteligência e resultados para sua presença digital.</p>
+          <span className="eyebrow-label">Contato</span>
+          <h2>Ficou com alguma dúvida?</h2>
+          <p>Conte rapidamente o que você precisa e eu retorno pelo WhatsApp.</p>
           <div className="footer-socials">
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-pill"
+              className="social-icon footer-social-icon"
+              aria-label="Instagram"
             >
-              Instagram
+              <Instagram size={20} />
             </a>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-pill"
+              className="social-icon footer-social-icon"
+              aria-label="WhatsApp"
             >
-              WhatsApp
+              <MessageCircle size={20} />
             </a>
           </div>
         </div>
-        <div className="footer-cta">
-          <h3>Pronto para começar?</h3>
-          <p>Vamos conversar sobre o seu projeto.</p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="primary-button"
-          >
-            Falar no WhatsApp
-          </a>
-        </div>
+        <form
+          className="footer-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+          }}
+        >
+          <label>
+            <span>Nome</span>
+            <input type="text" name="name" placeholder="Seu nome" />
+          </label>
+          <label>
+            <span>WhatsApp</span>
+            <input type="tel" name="phone" placeholder="Seu número" />
+          </label>
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" placeholder="Seu email" />
+          </label>
+          <label className="footer-form-message">
+            <span>Mensagem</span>
+            <textarea name="message" placeholder="Mensagem opcional" rows={5} />
+          </label>
+          <button type="submit" className="primary-button">
+            Enviar
+          </button>
+        </form>
       </div>
       <div className="footer-bottom">
         <span>© 2025 IAra Soluções Digitais. Todos os direitos reservados.</span>
@@ -756,8 +777,9 @@ export function Landing() {
         <Services />
         <Portfolio />
         <WhyChoose />
+        <BrandTech />
         <About />
-        <Testimonials />
+        <WorkProcess />
         <Faq />
       </main>
       <Footer />
