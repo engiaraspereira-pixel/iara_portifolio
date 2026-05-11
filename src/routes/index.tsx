@@ -268,7 +268,7 @@ function Marquee() {
     "Execução",
   ];
   const sep = " ~ ";
-  const makeText = (items: string[]) => Array.from({ length: 3 }, () => items.join(sep)).join(sep);
+  const makeText = (items: string[]) => Array.from({ length: 8 }, () => items.join(sep)).join(sep);
 
   return (
     <div className="marquee-section">
@@ -423,7 +423,6 @@ function Portfolio() {
               <img
                 src={p.img}
                 alt={p.title}
-                loading="lazy"
                 className={`${p.isPhoto ? "is-photo" : "is-brand"} ${p.brandClass ?? ""}`}
               />
             </div>
@@ -450,7 +449,7 @@ function About() {
   return (
     <section id="sobre" className="section about-section">
       <div className="about-photo reveal-left">
-        <img src={iaraOfficeHq} alt="Iara Pereira, fundadora da IAra Soluções Digitais" loading="lazy" />
+        <img src={iaraOfficeHq} alt="Iara Pereira, fundadora da IAra Soluções Digitais" />
         <div className="about-badge">Fundadora · Iara Pereira</div>
       </div>
       <div className="about-copy reveal-right">
@@ -498,7 +497,6 @@ function BrandTech() {
           className="brand-tech-photo"
           src={techWorkspace}
           alt="Ambiente realista de tecnologia alinhado à marca IAra"
-          loading="lazy"
         />
         <div className="brand-tech-logo">
           <Logo />
@@ -525,11 +523,11 @@ function PhoneMockup({
         <div className="phone-notch" />
         <div className="phone-screen">
           {isVideo ? (
-            <video autoPlay loop muted playsInline preload="none" aria-label={alt}>
+            <video autoPlay loop muted playsInline aria-label={alt}>
               <source src={img} type="video/mp4" />
             </video>
           ) : (
-            <img src={img} alt={alt} loading="lazy" />
+            <img src={img} alt={alt} />
           )}
         </div>
       </div>
@@ -684,7 +682,7 @@ function Faq() {
 function Footer() {
   return (
     <footer id="contato" className="footer">
-      <video className="footer-bg-video" autoPlay loop muted playsInline preload="none" aria-hidden="true">
+      <video className="footer-bg-video" autoPlay loop muted playsInline aria-hidden="true">
         <source src={footerNeuralLogoBg} type="video/mp4" />
       </video>
       <div className="footer-bg-overlay" />
