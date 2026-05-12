@@ -57,7 +57,9 @@
 .site-shell {
   min-height: 100vh;
   overflow-x: hidden;
-  background: var(--cream);
+  background-color: var(--cream);
+  background-image: radial-gradient(circle, rgba(7, 28, 70, 0.065) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 /* ─── Header ─────────────────────────────────────────────── */
@@ -710,7 +712,7 @@
 /* ─── Portfolio ─────────────────────────────────────────────── */
 
 .portfolio-section {
-  background: var(--cream);
+  background: transparent;
 }
 
 .portfolio-carousel {
@@ -1030,7 +1032,7 @@
 /* ─── Process ─────────────────────────────────────────── */
 
 .process-section {
-  background: var(--cream);
+  background: transparent;
   padding-top: 70px;
   padding-bottom: 70px;
 }
