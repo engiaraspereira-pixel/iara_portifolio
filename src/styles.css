@@ -21,10 +21,12 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     margin: 0;
+    overflow-x: hidden;
     background: var(--cream);
     color: var(--ink);
     font-family: var(--font-sans);
@@ -1957,6 +1959,71 @@
 
   .section {
     padding: 64px 20px;
+  }
+
+  .why-section {
+    justify-items: center;
+  }
+
+  .why-copy {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .why-phones {
+    width: min(100%, 360px);
+    height: 370px;
+    gap: 8px;
+    padding: 24px 0 12px;
+    overflow: visible;
+  }
+
+  .why-phones .phone-frame {
+    width: clamp(94px, 28vw, 108px);
+    border-width: 5px;
+    border-radius: 24px;
+  }
+
+  .phone-1 {
+    transform: rotate(-8deg) translateY(18px);
+  }
+
+  .phone-2 {
+    transform: scale(1.06);
+  }
+
+  .phone-3 {
+    transform: rotate(8deg) translateY(22px);
+  }
+
+  @keyframes phone-float-1 {
+    0%,
+    100% {
+      transform: rotate(-8deg) translateY(18px);
+    }
+    50% {
+      transform: rotate(-8deg) translateY(4px);
+    }
+  }
+
+  @keyframes phone-float-2 {
+    0%,
+    100% {
+      transform: scale(1.06) translateY(0);
+    }
+    50% {
+      transform: scale(1.06) translateY(-14px);
+    }
+  }
+
+  @keyframes phone-float-3 {
+    0%,
+    100% {
+      transform: rotate(8deg) translateY(22px);
+    }
+    50% {
+      transform: rotate(8deg) translateY(8px);
+    }
   }
 
   .portfolio-img {
